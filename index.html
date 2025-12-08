@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Handcrafted - Custom Rugs & Tufting Art</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for Inter font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#783300', // Deep earthy brown/terracotta
+                        'secondary': '#C0A06D', // Warm beige/sandy color
+                        'accent': '#A34F18', // Richer brown/orange for highlights
+                        'background': '#F9F7F3', // Off-white/cream
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom styles for better visual appeal */
+        .section-header {
+            border-bottom: 2px solid theme('colors.secondary');
+        }
+        .portfolio-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="font-sans bg-background text-primary">
+
+    <!-- Sticky WhatsApp Button -->
+    <a href="https://wa.me/1234567890?text=Hello!%20I'm%20interested%20in%20a%20custom%20rug%20order." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 z-50 p-4 bg-green-500 text-white rounded-full shadow-lg hover:bg-green-600 transition duration-300 transform hover:scale-105"
+       aria-label="Chat with us on WhatsApp">
+       <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+           <path d="M12 2C6.477 2 2 6.477 2 12c0 3.321 1.62 6.307 4.133 8.167l-.768 2.833 3.018-.841A9.965 9.965 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm3.827 13.568c-.104-.176-.395-.282-.82-.505-.426-.223-2.502-1.229-2.898-1.36-.396-.131-.685-.198-.974.198-.29.396-1.121 1.36-1.37 1.649-.248.29-.496.331-.922.11-.426-.223-1.802-.663-3.435-2.122-1.268-1.144-2.126-2.55-2.374-2.946-.248-.396-.026-.61.196-.833.193-.198.426-.505.639-.753.213-.248.283-.435.426-.725.143-.29.071-.54-.036-.753-.104-.213-.974-2.348-1.334-3.21-.358-.863-.717-.74-.974-.753-.248-.013-.538-.013-.827-.013-.29 0-.768.11-.974.396-.206.289-.78 1.139-.78 2.77 0 1.631 1.155 3.21 1.659 3.896.505.686 2.215 3.376 5.378 4.618 3.163 1.242 3.827 1.053 4.512.986.685-.067 1.155-.444 1.325-.879.17-.434.17-.806.121-.892-.049-.086-.179-.131-.371-.237z"/>
+       </svg>
+    </a>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-background/95 backdrop-blur-sm border-b border-secondary/50 shadow-sm">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            <a href="#hero" class="text-2xl font-bold text-accent tracking-wider">TUFT LAB</a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#portfolio" class="text-primary hover:text-accent transition duration-150">Portfolio</a>
+                <a href="#about" class="text-primary hover:text-accent transition duration-150">About</a>
+                <a href="#pricing" class="text-primary hover:text-accent transition duration-150">Pricing</a>
+                <a href="#contact" class="px-4 py-1 border border-accent rounded-full text-accent hover:bg-accent hover:text-white transition duration-150">Order</a>
+            </nav>
+            <button class="md:hidden text-primary focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="pt-24 pb-32 bg-secondary/30">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight text-primary">
+                Your Vision, <span class="text-accent">Woven to Life</span>.
+            </h1>
+            <p class="text-xl md:text-2xl mb-8 text-primary/80 max-w-3xl mx-auto">
+                Handcrafted custom rugs tailored exactly to your design, color palette, and size. Turn any idea into a cozy, unique floor piece.
+            </p>
+            <a href="#contact" class="inline-block px-8 py-3 text-lg font-semibold bg-accent text-white rounded-full shadow-lg hover:bg-primary transition duration-300 transform hover:scale-105">
+                Start Your Custom Order
+            </a>
+        </div>
+    </section>
+
+    <!-- Portfolio/Previous Work Section -->
+    <section id="portfolio" class="py-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 section-header pb-2 max-w-max mx-auto">Previous Work</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Rug Card 1 -->
+                <div class="portfolio-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300">
+                    <img src="https://placehold.co/600x400/C0A06D/783300?text=Abstract+Design" alt="Abstract geometric rug" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">The Abstract Coil</h3>
+                        <p class="text-sm text-primary/70">Hand-tufted, high-density acrylic. Dimensions: 1.5m x 1.5m.</p>
+                    </div>
+                </div>
+
+                <!-- Rug Card 2 -->
+                <div class="portfolio-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300">
+                    <img src="https://placehold.co/600x400/783300/F9F7F3?text=Pop+Art+Character" alt="Pop art style character rug" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Pop Culture Icon</h3>
+                        <p class="text-sm text-primary/70">Wool/Cotton blend, custom dyed yarns. Dimensions: 1.2m x 0.8m.</p>
+                    </div>
+                </div>
+
+                <!-- Rug Card 3 -->
+                <div class="portfolio-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300">
+                    <img src="https://placehold.co/600x400/A34F18/F9F7F3?text=Minimalist+Logo" alt="Minimalist corporate logo rug" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Corporate Brand Mat</h3>
+                        <p class="text-sm text-primary/70">Short loop pile, commercial grade yarn. Dimensions: 2m x 1m.</p>
+                    </div>
+                </div>
+
+                <!-- Rug Card 4 -->
+                <div class="portfolio-card bg-white rounded-xl shadow-lg overflow-hidden transition duration-300">
+                    <img src="https://placehold.co/600x400/F9F7F3/783300?text=Floral+Pattern" alt="Intricate floral pattern rug" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Botanical Elegance</h3>
+                        <p class="text-sm text-primary/70">Cut pile, New Zealand wool. Dimensions: 3m x 2.5m.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About The Business/Creator Section -->
+    <section id="about" class="py-20 bg-secondary/20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <img src="https://placehold.co/600x400/A34F18/F9F7F3?text=Creator+Portrait" alt="Portrait of the rug creator" class="rounded-xl shadow-2xl w-full max-w-md mx-auto lg:mx-0">
+            </div>
+            <div>
+                <h2 class="text-4xl font-bold mb-6 section-header pb-2 max-w-max">The Story Behind the Tuft</h2>
+                <p class="mb-4 text-lg">
+                    Hello, I'm Alex, and I started Tuft Lab with a passion for turning forgotten floor space into vibrant, tactile art. For me, rug making isn't just a craft—it's a form of detailed, meditative expression. Every loop, every color change, is done by hand with precision and care.
+                </p>
+                <p class="mb-4 text-lg">
+                    I believe your space deserves a piece that is as unique as you are. Unlike mass-produced carpets, a custom tufted rug tells a story and brings warmth and personality that factory lines simply can't replicate. From concept sketch to final backing, I oversee every step to ensure heirloom quality.
+                </p>
+                <p class="text-lg font-semibold text-accent">
+                    Let's collaborate and bring texture and life to your home or business.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pricing & Product Information Section -->
+    <section id="pricing" class="py-20">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-4xl font-bold text-center mb-12 section-header pb-2 max-w-max mx-auto">Pricing & Materials</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Pricing Card 1: Standard Acrylic -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-accent transition duration-300 hover:shadow-xl">
+                    <h3 class="text-2xl font-bold mb-3 text-accent">The Classic (Acrylic)</h3>
+                    <p class="text-4xl font-extrabold mb-6 text-primary">$150 / sq. meter</p>
+                    <ul class="list-none space-y-3 text-primary/90">
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Vibrant color fastness</li>
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Durable and easy to clean</li>
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Best for graphic designs/logos</li>
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Ideal for high-traffic areas</li>
+                    </ul>
+                </div>
+
+                <!-- Pricing Card 2: Premium Wool Blend (Recommended) -->
+                <div class="bg-primary/90 p-8 rounded-xl shadow-2xl border-t-4 border-secondary transition duration-300 transform scale-105">
+                    <p class="text-sm font-semibold mb-2 uppercase tracking-widest text-secondary">Recommended</p>
+                    <h3 class="text-2xl font-bold mb-3 text-secondary">The Luxurious (Wool Blend)</h3>
+                    <p class="text-4xl font-extrabold mb-6 text-white">$250 / sq. meter</p>
+                    <ul class="list-none space-y-3 text-secondary">
+                        <li class="flex items-start"><span class="text-white mr-2 text-xl">&bull;</span> 100% New Zealand Wool options</li>
+                        <li class="flex items-start"><span class="text-white mr-2 text-xl">&bull;</span> Incredible softness and texture</li>
+                        <li class="flex items-start"><span class="text-white mr-2 text-xl">&bull;</span> Naturally flame-retardant</li>
+                        <li class="flex items-start"><span class="text-white mr-2 text-xl">&bull;</span> Excellent for complex, detailed art</li>
+                    </ul>
+                </div>
+
+                <!-- Pricing Card 3: Specialty Fibers -->
+                <div class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-accent transition duration-300 hover:shadow-xl">
+                    <h3 class="text-2xl font-bold mb-3 text-accent">The Bespoke (Specialty)</h3>
+                    <p class="text-4xl font-extrabold mb-6 text-primary">Quote Only</p>
+                    <ul class="list-none space-y-3 text-primary/90">
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Silk, Bamboo, or Hemp fibers</li>
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Custom shape/extreme size orders</li>
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Includes in-depth design consultation</li>
+                        <li class="flex items-start"><span class="text-accent mr-2 text-xl">&bull;</span> Ideal for interior designers</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="mt-8 text-center text-sm text-primary/70">All prices are estimates and may vary based on design complexity, number of colors, and backing type. Final quote provided upon design approval.</p>
+        </div>
+    </section>
+
+    <!-- Contact & Order Form Section -->
+    <section id="contact" class="py-20 bg-background">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+            <h2 class="text-4xl font-bold text-center mb-12 section-header pb-2 max-w-max mx-auto">Get in Touch / Place an Order</h2>
+
+            <form action="mailto:yourclientemail@example.com" method="post" enctype="text/plain" class="space-y-6 p-8 bg-white rounded-xl shadow-2xl">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-primary mb-1">Your Full Name (Required)</label>
+                    <input type="text" id="name" name="Name" required 
+                           class="w-full px-4 py-2 border border-secondary rounded-lg focus:ring-accent focus:border-accent transition duration-150">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-primary mb-1">Your Email (Required)</label>
+                    <input type="email" id="email" name="Email" required 
+                           class="w-full px-4 py-2 border border-secondary rounded-lg focus:ring-accent focus:border-accent transition duration-150">
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="size" class="block text-sm font-medium text-primary mb-1">Estimated Size (e.g., 1.5m x 2m)</label>
+                        <input type="text" id="size" name="Estimated Size" 
+                               class="w-full px-4 py-2 border border-secondary rounded-lg focus:ring-accent focus:border-accent transition duration-150">
+                    </div>
+                    <div>
+                        <label for="material" class="block text-sm font-medium text-primary mb-1">Preferred Material</label>
+                        <select id="material" name="Preferred Material" 
+                                class="w-full px-4 py-2 border border-secondary rounded-lg focus:ring-accent focus:border-accent transition duration-150 bg-white">
+                            <option value="acrylic">Acrylic (The Classic)</option>
+                            <option value="wool" selected>Wool Blend (The Luxurious)</option>
+                            <option value="specialty">Specialty / Unsure (The Bespoke)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label for="design" class="block text-sm font-medium text-primary mb-1">Describe Your Design Idea & Intent (Required)</label>
+                    <textarea id="design" name="Design Description" rows="5" required 
+                              class="w-full px-4 py-2 border border-secondary rounded-lg focus:ring-accent focus:border-accent transition duration-150"
+                              placeholder="Describe the shape, colors, style (e.g., 'A round rug with a sunset gradient', 'A specific brand logo', 'A line-art portrait')."></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="w-full md:w-auto px-10 py-3 text-lg font-semibold bg-accent text-white rounded-full shadow-md hover:bg-primary transition duration-300 transform hover:scale-[1.02]">
+                        Send My Custom Inquiry
+                    </button>
+                    <p class="mt-4 text-xs text-primary/60">
+                        Note: This form uses a simple 'mailto' action. For file uploads (like sketches), please contact us directly via WhatsApp or email after submitting this form.
+                    </p>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-primary text-white py-8">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="mb-4 space-x-6">
+                <a href="#portfolio" class="hover:text-secondary transition duration-150">Portfolio</a>
+                <a href="#about" class="hover:text-secondary transition duration-150">About</a>
+                <a href="#contact" class="hover:text-secondary transition duration-150">Order</a>
+            </div>
+            
+            <div class="flex justify-center space-x-6 mb-4">
+                <!-- WhatsApp Link in Footer -->
+                <a href="https://wa.me/1234567890" target="_blank" class="text-white hover:text-green-400 transition duration-150" aria-label="WhatsApp">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 3.321 1.62 6.307 4.133 8.167l-.768 2.833 3.018-.841A9.965 9.965 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm3.827 13.568c-.104-.176-.395-.282-.82-.505-.426-.223-2.502-1.229-2.898-1.36-.396-.131-.685-.198-.974.198-.29.396-1.121 1.36-1.37 1.649-.248.29-.496.331-.922.11-.426-.223-1.802-.663-3.435-2.122-1.268-1.144-2.126-2.55-2.374-2.946-.248-.396-.026-.61.196-.833.193-.198.426-.505.639-.753.213-.248.283-.435.426-.725.143-.29.071-.54-.036-.753-.104-.213-.974-2.348-1.334-3.21-.358-.863-.717-.74-.974-.753-.248-.013-.538-.013-.827-.013-.29 0-.768.11-.974.396-.206.289-.78 1.139-.78 2.77 0 1.631 1.155 3.21 1.659 3.896.505.686 2.215 3.376 5.378 4.618 3.163 1.242 3.827 1.053 4.512.986.685-.067 1.155-.444 1.325-.879.17-.434.17-.806.121-.892-.049-.086-.179-.131-.371-.237z"/></svg>
+                </a>
+                <!-- Mock Social Media Link -->
+                <a href="#" class="text-white hover:text-secondary transition duration-150" aria-label="Instagram">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4c0 3.2-2.6 5.8-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8C2 4.6 4.6 2 7.8 2zm-.2 2.7c-2.4 0-4.3 1.9-4.3 4.3v7.8c0 2.4 1.9 4.3 4.3 4.3h7.8c2.4 0 4.3-1.9 4.3-4.3V7.8c0-2.4-1.9-4.3-4.3-4.3H7.6zm8.1 1.5c.8 0 1.5-.7 1.5-1.5S16.5 5 15.7 5s-1.5.7-1.5 1.5.7 1.5 1.5 1.5zM12 8c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4zm0 2.5c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5 1.5-.7 1.5-1.5-.7-1.5-1.5-1.5z"/></svg>
+                </a>
+            </div>
+            
+            <p class="text-sm text-secondary/70">&copy; 2024 Tuft Lab Custom Rugs. All rights reserved. | Handcrafted with passion.</p>
+        </div>
+    </footer>
+</body>
+</html>
