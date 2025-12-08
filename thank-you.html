@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You for Your Order!</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for Inter font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#1E4D2B',   /* Dark Forest Green */
+                        'secondary': '#E5F3E7', /* Light Mint/Cream */
+                        'accent': '#A56CFF',    /* Muted Purple */
+                        'text-dark': '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans text-text-dark bg-secondary/70 min-h-screen flex flex-col justify-center items-center p-4">
+
+    <!-- Thank You Card -->
+    <div class="bg-white p-8 md:p-12 rounded-xl shadow-2xl max-w-2xl w-full text-center border-t-8 border-accent">
+        <svg class="w-16 h-16 mx-auto text-accent mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        
+        <h1 class="text-4xl font-bold text-primary mb-4">
+            Order Inquiry Received!
+        </h1>
+        
+        <p class="text-xl mb-6 text-text-dark/80">
+            Thank you for contacting **OG EDIBLES1738**. We appreciate your interest in our premium products.
+        </p>
+        
+        <div class="bg-secondary p-4 rounded-lg border border-primary/20 mb-8">
+            <h3 class="text-lg font-semibold text-primary mb-2">What happens next?</h3>
+            <p class="text-text-dark text-md">
+                A representative will reach out to you shortly via the WhatsApp number you provided to confirm the order, discuss availability, and finalize delivery details.
+            </p>
+            <p class="text-sm italic mt-2 text-primary/70">
+                Please check your WhatsApp messages within the next 1-2 hours.
+            </p>
+        </div>
+
+        <a href="index.html" class="inline-block px-8 py-3 text-lg font-semibold bg-primary text-white rounded-full shadow-lg hover:bg-accent transition duration-300 transform hover:scale-105">
+            Return to OG EDIBLES1738 Menu
+        </a>
+    </div>
+
+    <!-- Footer for context -->
+    <footer class="mt-8">
+        <p class="text-sm text-primary/60">&copy; 2024 OG EDIBLES1738. All rights reserved.</p>
+    </footer>
+</body>
+</html>
