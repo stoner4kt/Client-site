@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OG EDIBLES1738 - Premium Cannabis & Edibles</title>
+
+    <!-- 1. Google Analytics (GA4) Tracking Snippet -->
+    <!-- NOTE: Replace 'G-XXXXXXXXXX' with the actual tracking ID -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-XXXXXXXXXX');
+    </script>
+    
+    <!-- 2. Google Search Console Verification Meta Tag -->
+    <!-- NOTE: Replace 'YOUR_VERIFICATION_CODE' with the actual code from Search Console -->
+    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
+
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for Inter font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#1E4D2B',   /* Dark Forest Green */
+                        'secondary': '#E5F3E7', /* Light Mint/Cream */
+                        'accent': '#A56CFF',    /* Muted Purple */
+                        'text-dark': '#333333',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* General styles */
+        body {
+            background-color: #FFFFFF;
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(30, 77, 43, 0.15);
+        }
+
+        /* Age Verification Modal styles */
+        #age-gate-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+        .hidden-gate {
+            opacity: 0 !important;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans text-text-dark">
+
+    <!-- Age Verification Gate (MUST BE VISIBLE ON LOAD) -->
+    <div id="age-gate-overlay">
+        <div class="bg-white p-10 md:p-16 rounded-xl shadow-2xl max-w-lg w-11/12 text-center border-t-4 border-accent">
+            <h1 class="text-3xl font-bold text-primary mb-4">Welcome to OG EDIBLES1738</h1>
+            <p class="text-lg mb-8 text-text-dark">
+                Please confirm that you are 21 years of age or older to view our products.
+            </p>
+            <button id="age-confirm-btn" class="px-8 py-3 bg-accent text-white font-semibold rounded-full shadow-lg hover:bg-primary transition duration-300">
+                I am 21+
+            </button>
+            <p class="mt-4 text-xs text-text-dark/70">
+                By clicking, you confirm you meet the legal age requirement in your jurisdiction.
+            </p>
+        </div>
+    </div>
+    
+    <!-- Main Content (Hidden until Age Confirmed) -->
+    <div id="main-content" class="opacity-0 transition-opacity duration-500 pointer-events-none">
+
+        <!-- Sticky WhatsApp Button -->
+        <a href="https://wa.me/1234567890?text=Hi%20OG%20EDIBLES1738%2C%20I%20have%20an%20order%20inquiry." 
+           target="_blank" 
+           class="fixed bottom-6 right-6 z-50 p-4 bg-green-500 text-white rounded-full shadow-xl hover:bg-green-600 transition duration-300 transform hover:scale-105"
+           aria-label="Chat with us on WhatsApp">
+           <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+               <path d="M12 2C6.477 2 2 6.477 2 12c0 3.321 1.62 6.307 4.133 8.167l-.768 2.833 3.018-.841A9.965 9.965 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm3.827 13.568c-.104-.176-.395-.282-.82-.505-.426-.223-2.502-1.229-2.898-1.36-.396-.131-.685-.198-.974.198-.29.396-1.121 1.36-1.37 1.649-.248.29-.496.331-.922.11-.426-.223-1.802-.663-3.435-2.122-1.268-1.144-2.126-2.55-2.374-2.946-.248-.396-.026-.61.196-.833.193-.198.426-.505.639-.753.213-.248.283-.435.426-.725.143-.29.071-.54-.036-.753-.104-.213-.974-2.348-1.334-3.21-.358-.863-.717-.74-.974-.753-.248-.013-.538-.013-.827-.013-.29 0-.768.11-.974.396-.206.289-.78 1.139-.78 2.77 0 1.631 1.155 3.21 1.659 3.896.505.686 2.215 3.376 5.378 4.618 3.163 1.242 3.827 1.053 4.512.986.685-.067 1.155-.444 1.325-.879.17-.434.17-.806.121-.892-.049-.086-.179-.131-.371-.237z"/>
+           </svg>
+        </a>
+
+        <!-- Navigation Bar -->
+        <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-primary/10 shadow-sm">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+                <a href="#hero" class="text-2xl font-extrabold text-primary tracking-wider">OG EDIBLES1738</a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="#products" class="text-text-dark hover:text-accent transition duration-150">Menu</a>
+                    <a href="#about" class="text-text-dark hover:text-accent transition duration-150">Our Story</a>
+                    <a href="#disclaimers" class="text-text-dark hover:text-accent transition duration-150">Legal</a>
+                    <a href="#order" class="px-4 py-1 border border-accent rounded-full text-accent hover:bg-accent hover:text-white transition duration-150">Order Now</a>
+                </nav>
+                <button class="md:hidden text-text-dark focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Hero Section -->
+        <section id="hero" class="pt-24 pb-16 bg-secondary/70">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight text-primary">
+                    Premium Quality, <span class="text-accent">Elevated Experience</span>.
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-text-dark/80 max-w-4xl mx-auto">
+                    Curated selection of raw flower, delicious edibles, and innovative cannabis-infused beverages. Discover your perfect dose.
+                </p>
+                <!-- Large Banner Image (1/16) -->
+                <img src="https://placehold.co/1200x400/1E4D2B/E5F3E7?text=OG+EDIBLES1738+Artisan+Selection" alt="High-quality cannabis products banner" class="mx-auto mt-10 rounded-xl shadow-xl w-full max-w-5xl">
+                <a href="#products" class="inline-block px-8 py-3 text-lg font-semibold bg-primary text-white rounded-full shadow-lg hover:bg-accent transition duration-300 transform hover:scale-105 mt-8">
+                    View Our Full Menu
+                </a>
+            </div>
+        </section>
+
+        <!-- Menu & Products Section -->
+        <section id="products" class="py-20">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent/30 pb-2 max-w-max mx-auto">Menu & Products</h2>
+                
+                <!-- Edibles Grid (4 Images) -->
+                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Gummies & Edibles</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Mixed+Gummies" alt="Mixed Fruit Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Mixed Fruit (100mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$20</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Squares" alt="Chocolate Squares" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Chocolate (50mg/ea)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$25</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts" alt="Vegan Cannabis Tarts" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Vegan Sativa Tarts</p>
+                        <p class="text-accent text-lg font-bold mt-1">$18</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Cereal+Bar" alt="Infused Cereal Bar" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Infused Cereal Bar</p>
+                        <p class="text-accent text-lg font-bold mt-1">$22</p>
+                    </div>
+                </div>
+
+                <!-- Flower Grid (4 Images) -->
+                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Raw Flower</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream" alt="Blue Dream Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Blue Dream (Sativa)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$45/3.5g</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush" alt="OG Kush Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Kush (Indica)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$50/3.5g</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake" alt="Wedding Cake Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Wedding Cake (Hybrid)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$48/3.5g</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Haze" alt="Purple Haze Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Purple Haze (Sativa)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$45/3.5g</p>
+                    </div>
+                </div>
+
+                <!-- Beverages Grid (4 Images) -->
+                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Infused Beverages</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Citrus+Soda" alt="Sparkling Citrus Soda" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Citrus Soda (5mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$8</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Coffee+Shot" alt="Iced Coffee Shot" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Iced Coffee Shot (10mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$12</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Ginger+Ale" alt="Ginger Ale Mixer" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Ginger Ale (2.5mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$7</p>
+                    </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Black+Tea" alt="Infused Black Tea" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Organic Black Tea (5mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$9</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-secondary/50">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- About Image (13/16) -->
+                    <img src="https://placehold.co/600x400/A56CFF/FFFFFF?text=Lab+Testing+and+Quality" alt="Third-party lab testing equipment" class="rounded-xl shadow-2xl w-full">
+                    <div>
+                        <h2 class="text-4xl font-bold mb-6 border-b-2 border-primary/30 pb-2 max-w-max">Our Commitment to Quality</h2>
+                        <p class="mb-4 text-lg text-text-dark">
+                            At OG EDIBLES1738, our mission is simple: to provide the purest, safest, and most enjoyable cannabis products available. We source our flower from small, sustainable farms and use solvent-free extraction methods for all our edibles and beverages.
+                        </p>
+                        <p class="mb-4 text-lg text-text-dark">
+                            Every product is meticulously tested by third-party laboratories for potency and contaminants, ensuring consistency and peace of mind with every purchase. We believe in transparency, traceability, and educating our customers on responsible consumption.
+                        </p>
+                        <p class="text-lg font-semibold text-accent">
+                            Quality matters because your experience matters.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Order Form Section -->
+        <section id="order" class="py-20 bg-white">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
+                <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent/30 pb-2 max-w-max mx-auto">Place Your Order</h2>
+                
+                <!-- Netlify Form Configuration: name attribute is crucial, along with data-netlify="true" and the hidden field -->
+                <form name="order-form" method="POST" data-netlify="true" class="space-y-6 p-8 bg-secondary/30 rounded-xl shadow-2xl">
+                    <!-- Netlify Hidden Field (MANDATORY for Netlify Forms) -->
+                    <input type="hidden" name="form-name" value="order-form" />
+                    
+                    <p class="text-sm font-semibold text-primary/80">
+                        Please fill out the form below. A representative from OG EDIBLES1738 will contact you via email or WhatsApp to confirm pricing, availability, and delivery options.
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-text-dark mb-1">Your Full Name (Required)</label>
+                            <input type="text" id="name" name="Name" required 
+                                   class="w-full px-4 py-2 border border-primary/30 rounded-lg focus:ring-accent focus:border-accent transition duration-150">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-text-dark mb-1">WhatsApp Phone (Required)</label>
+                            <input type="tel" id="phone" name="WhatsApp Phone" required 
+                                   class="w-full px-4 py-2 border border-primary/30 rounded-lg focus:ring-accent focus:border-accent transition duration-150">
+                        </div>
+                    </div>
+                    
+                    <!-- Order details image (14/16) -->
+                    <img src="https://placehold.co/800x200/1E4D2B/E5F3E7?text=OG+EDIBLES1738+Order+Details" alt="Detailed order checklist illustration" class="mx-auto rounded-lg shadow-md">
+
+                    <div>
+                        <label for="order-details" class="block text-sm font-medium text-text-dark mb-1">Specify Your Order Details (Required)</label>
+                        <textarea id="order-details" name="Order Details" rows="5" required 
+                                  class="w-full px-4 py-2 border border-primary/30 rounded-lg focus:ring-accent focus:border-accent transition duration-150"
+                                  placeholder="Example: 1x Blue Dream (3.5g), 2x Sparkling Citrus Soda (5mg), 1x Mixed Fruit Gummies (100mg)"></textarea>
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="w-full md:w-2/3 px-10 py-3 text-lg font-semibold bg-accent text-white rounded-full shadow-md hover:bg-primary transition duration-300 transform hover:scale-[1.02]">
+                            Submit Order Inquiry
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+        
+        <!-- Legal Disclaimers Section (IMPORTANT) -->
+        <section id="disclaimers" class="py-16 bg-primary/90 text-secondary">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-center mb-8 border-b-2 border-secondary/50 pb-2 max-w-max mx-auto">Legal & Safety Information</h2>
+                <div class="max-w-4xl mx-auto space-y-4 text-sm">
+                    <!-- Disclaimer Image 1 (15/16) -->
+                    <img src="https://placehold.co/800x150/A56CFF/FFFFFF?text=Age+Restriction+Sign" alt="Age restriction warning sign" class="mx-auto rounded-lg shadow-md mb-4 w-full">
+                    <p><strong>Age Restriction:</strong> All products from OG EDIBLES1738 are for consumers 21 years of age or older. We require valid photo identification upon delivery or pickup.</p>
+                    <p><strong>Disclaimer:</strong> Cannabis products may only be sold legally in certain jurisdictions. By using this site, you affirm that you are in a location where the purchase and possession of these products is legal for recreational or medicinal use.</p>
+                    <!-- Disclaimer Image 2 (16/16) -->
+                    <img src="https://placehold.co/800x150/1E4D2B/E5F3E7?text=Responsible+Use+Message" alt="Responsible use reminder graphic" class="mx-auto rounded-lg shadow-md mt-4 w-full">
+                    <p><strong>Responsibility:</strong> Please consume responsibly. Do not operate heavy machinery or drive after consumption. Keep all products out of reach of children and pets. Dosage information is for reference only; individual results may vary.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-primary text-white py-8">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+                    
+                    <!-- Left Column: Branding and Links -->
+                    <div>
+                        <h4 class="text-2xl font-extrabold text-accent mb-3">OG EDIBLES1738</h4>
+                        <p class="text-sm text-secondary/70 mb-4">Premium quality, discreet delivery, focused on your elevated experience.</p>
+                        <a href="#products" class="text-sm hover:text-accent block">Menu</a>
+                        <a href="#about" class="text-sm hover:text-accent block">Our Story</a>
+                        <a href="#disclaimers" class="text-sm hover:text-accent block">Legal & Safety</a>
+                    </div>
+                    
+                    <!-- Center Column: Service Area Map -->
+                    <div class="md:col-span-1">
+                        <h4 class="text-lg font-semibold mb-3 text-secondary">Service Area (Approximate)</h4>
+                        <!-- 3. Google Maps iframe -->
+                        <!-- Placeholder map centered on Los Angeles, common for delivery services -->
+                        <div class="aspect-video w-full rounded-lg overflow-hidden border-2 border-accent">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105825.0069324059!2d-118.35824984251786!3d34.05223420088998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
+                                width="100%" 
+                                height="100%" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                title="OG EDIBLES1738 Service Area Map">
+                            </iframe>
+                        </div>
+                        <p class="text-xs mt-2 text-secondary/50 italic">Please confirm exact service boundaries when ordering.</p>
+                    </div>
+
+                    <!-- Right Column: Contact and Legal Note -->
+                    <div>
+                        <h4 class="text-lg font-semibold mb-3 text-secondary">Contact Us</h4>
+                        <p class="text-sm text-secondary/70">
+                            **WhatsApp:** +1 (234) 567-890<br>
+                            **Email:** info@ogedibles1738.com
+                        </p>
+                        <div class="mt-4 pt-4 border-t border-secondary/20">
+                            <p class="text-xs text-secondary/50">&copy; 2024 OG EDIBLES1738. All rights reserved.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ageGateOverlay = document.getElementById('age-gate-overlay');
+            const ageConfirmBtn = document.getElementById('age-confirm-btn');
+            const mainContent = document.getElementById('main-content');
+            // Using localStorage to remember age confirmation
+            const AGE_CONFIRMED_KEY = 'elevate_age_confirmed';
+
+            // Check if user has already confirmed age in this session
+            if (localStorage.getItem(AGE_CONFIRMED_KEY) === 'true') {
+                hideAgeGate();
+            }
+
+            ageConfirmBtn.addEventListener('click', function() {
+                localStorage.setItem(AGE_CONFIRMED_KEY, 'true');
+                hideAgeGate();
+            });
+
+            function hideAgeGate() {
+                // Fade out the gate and then remove it visually
+                ageGateOverlay.classList.add('hidden-gate');
+                
+                // Show main content
+                mainContent.classList.remove('opacity-0', 'pointer-events-none');
+                mainContent.classList.add('opacity-100');
+            }
+
+            // Netlify form submission handling (optional client-side feedback)
+            // Note: The actual submission is handled by Netlify's backend.
+            const form = document.querySelector('form[name="order-form"]');
+            form.addEventListener('submit', function(e) {
+                setTimeout(() => {
+                    console.log('Form submission detected. Netlify is handling the data capture.');
+                }, 100);
+                // No e.preventDefault() needed if you want Netlify's default success page behavior
+            });
+        });
+    </script>
+</body>
+</html>
