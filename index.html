@@ -5,7 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OG EDIBLES1738 - Premium Cannabis & Edibles</title>
 
-    <!-- Load Tailwind CSS -->
+    <meta name="google-site-verification" content="YOUR_SEARCH_CONSOLE_VERIFICATION_CODE" />
+    
+    <script async src="https://www.googletagmanager.com/gtag/js?id=YOUR_GA4_MEASUREMENT_ID"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'YOUR_GA4_MEASUREMENT_ID');
+    </script>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         // --- Configuration Section (Conceptual CSS part 1) ---
@@ -110,13 +119,6 @@
 </head>
 <body class="font-sans text-text-dark">
 
-    <!-- 
-        ================================================================
-        --- HTML Structure Section (Conceptual index.html body) --- 
-        ================================================================
-    -->
-
-    <!-- Age Verification Gate -->
     <div id="age-gate-overlay">
         <div class="bg-white p-10 md:p-16 rounded-xl shadow-2xl max-w-lg w-11/12 text-center border-t-4 border-accent">
             <h1 class="text-3xl font-bold text-primary mb-4">Welcome to OG EDIBLES1738</h1>
@@ -132,7 +134,6 @@
         </div>
     </div>
 
-    <!-- Mobile Menu Drawer and Backdrop -->
     <div id="menu-backdrop" class="hidden-gate"></div>
     <div id="mobile-menu" class="lg:hidden">
         <div class="flex justify-between items-center mb-6 border-b pb-3 border-primary/20">
@@ -156,16 +157,13 @@
         </div>
     </div>
 
-    <!-- Main Content -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 pointer-events-none">
 
-        <!-- Tooltip for Product Description -->
         <div id="product-tooltip" class="fixed z-50 p-3 bg-primary text-white rounded-xl shadow-2xl transition-all duration-200 pointer-events-none">
             <p id="tooltip-content" class="text-sm"></p>
             <div id="tooltip-arrow" class="absolute w-3 h-3 bg-primary transform rotate-45 -bottom-1 rounded-sm" style="left: 50%;"></div>
         </div>
 
-        <!-- Sticky WhatsApp Button -->
         <a href="https://wa.me/1234567890?text=Hi%20OG%20EDIBLES1738%2C%20I%20have%20an%20order%20inquiry." 
            target="_blank" 
            class="fixed bottom-6 right-6 z-50 p-4 bg-green-500 text-white rounded-full shadow-xl hover:bg-green-600 transition duration-300 transform hover:scale-105"
@@ -175,7 +173,6 @@
            </svg>
         </a>
 
-        <!-- Navigation Bar -->
         <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm border-b border-primary/10 shadow-sm">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
                 <a href="#hero" class="text-2xl font-extrabold text-primary tracking-wider">OG EDIBLES1738</a>
@@ -186,19 +183,16 @@
                     <a href="#disclaimers" class="text-text-dark hover:text-accent transition duration-150">Legal</a>
                     <a href="#order" class="px-4 py-1 border border-accent rounded-full text-accent hover:bg-accent hover:text-white transition duration-150">Order Now</a>
                 </nav>
-                <!-- Mobile Menu Toggle Button (Visible only on small screens) -->
                 <button id="open-menu-btn" class="md:hidden text-text-dark focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
         </header>
         
-        <!-- Mandatory User ID Display -->
         <div class="fixed top-16 left-0 bg-yellow-100 text-yellow-800 p-2 text-xs w-full z-40 text-center shadow-md">
             Your User ID (for collaboration): <span id="user-id-display" class="font-mono font-bold">Loading...</span>
         </div>
 
-        <!-- Hero Section -->
         <section id="hero" class="pt-24 pb-16 bg-secondary/70">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h1 class="text-5xl md:text-7xl font-extrabold mb-4 leading-tight text-primary">
@@ -214,71 +208,59 @@
             </div>
         </section>
 
-        <!-- Menu & Products Section -->
         <section id="products" class="py-20">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent/30 pb-2 max-w-max mx-auto">Menu & Products</h2>
                 
-                <!-- Edibles Grid -->
                 <h3 class="text-3xl font-bold text-primary mb-6 text-center">Gummies, Chocolates & Baked Bliss</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-16">
                     
-                    <!-- Edible Item 1: OG Gummy Pack -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy1">
                         <img src="images/gummy-pack.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Gummy+Pack';" alt="OG Infused Gummy Pack" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG Gummy Pack (4-Count)</p>
                         <p class="text-accent text-lg font-bold mt-1">R150</p>
                     </div>
-                    <!-- Edible Item 2: OG Infused Chocolate Cubes -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy2">
                         <img src="images/ogcococubes.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Cubes';" alt="OG Infused Chocolate Cubes" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG Chocolate Cubes (10-Pack)</p>
                         <p class="text-accent text-lg font-bold mt-1">R150</p>
                     </div>
-                    <!-- Edible Item 3: Vegan Sativa Tarts (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy3">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts';" alt="Vegan Cannabis Tarts" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Vegan Sativa Tarts</p>
-                        <p class="text-accent text-lg font-bold mt-1">R180</p>
+                        <img src="images/gummys.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts';" alt="Vegan Cannabis Tarts" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Gummys(6=R100)</p>
+                        <p class="text-accent text-lg font-bold mt-1">R100</p>
                     </div>
-                    <!-- Edible Item 4: Infused Cereal Bar (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy4">
                         <img src="images/kingblunt.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Cereal+Bar';" alt="Infused Cereal Bar" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG King blunt (rolling paper) </p>
                         <p class="text-accent text-lg font-bold mt-1">R100×2=10 wraps</p>
                     </div>
-                     <!-- Edible Item 5: OG Infused Ice Cream (New) -->
                      <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy5">
                         <img src="images/icecream.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Ice+Cream';" alt="OG Infused Ice Cream" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG Infused Ice Cream</p>
                         <p class="text-accent text-lg font-bold mt-1">R65</p>
                     </div>
                     
-                    <!-- Edible Item 6: Sour Watermelon (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy6">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Sour+Watermelon" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Sour+Watermelon';" alt="Sour Watermelon Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Sour Watermelon (300mg)</p>
+                        <img src="images/pre-rolled.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Sour+Watermelon';" alt="Sour Watermelon Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark"> Pre-rolled joints</p>
                         <p class="text-accent text-lg font-bold mt-1">R350</p>
                     </div>
-                    <!-- Edible Item 7: Hazelnut Brownies (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy7">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Hazelnut+Brownie" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Hazelnut+Brownie';" alt="Hazelnut Brownies" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Hazelnut Brownies (Indica)</p>
+                        <img src="images/rosin.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Hazelnut+Brownie';" alt="Hazelnut Brownies" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Rosin (dab) 1gram</p>
                         <p class="text-accent text-lg font-bold mt-1">R300</p>
                     </div>
-                    <!-- Edible Item 8: Espresso Chews (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy8">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Espresso+Chews" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Espresso+Chews';" alt="Espresso Chews" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Espresso Chews (5mg)</p>
+                        <img src="images/shrooms.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Espresso+Chews';" alt="Espresso Chews" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Shrooms (5mg)</p>
                         <p class="text-accent text-lg font-bold mt-1">R100</p>
                     </div>
-                    <!-- Edible Item 9: OG Infused 3 Cookie Jar (New) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy9">
                         <img src="images/ogcookies.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Cookie+Jar';" alt="OG Infused Cookie Jar" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG Infused Cookie Jar (3-Pack)</p>
                         <p class="text-accent text-lg font-bold mt-1">R100</p>
                     </div>
-                    <!-- Edible Item 10: Tropical Jelly Beans (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy10">
                         <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Tropical+Jelly+Beans" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Tropical+Jelly+Beans';" alt="Tropical Jelly Beans" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Tropical Jelly Beans (150mg)</p>
@@ -287,66 +269,55 @@
 
                 </div>
 
-                <!-- Flower & Beverages Grid -->
                 <h3 class="text-3xl font-bold text-primary mb-6 text-center">G Sodas & Flower</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
 
-                    <!-- Item 1: OG G Soda - Grape -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink1">
                         <img src="images/grape.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Grape+Soda';" alt="OG Infused G Soda Grape" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG G Soda&Gummy pack</p>
                         <p class="text-accent text-lg font-bold mt-1">R210</p>
                     </div>
-                    <!-- Item 2: OG G Soda - Lemon -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink2">
                         <img src="images/og-lemon.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Lemon+Soda';" alt="OG Infused G Soda Lemon" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG G Soda - Lemon(4=R350)</p>
                         <p class="text-accent text-lg font-bold mt-1">R70</p>
                     </div>
-                    <!-- Item 3: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower2">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake';" alt="Wedding Cake Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Wedding Cake (Hybrid)</p>
+                        <img src="images/coated.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake';" alt="Wedding Cake Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Pre-rolled (Coated)</p>
                         <p class="text-accent text-lg font-bold mt-1">R480/3.5g</p>
                     </div>
-                    <!-- Item 4: OG G Soda - Raspberry -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink3">
                         <img src="images/cherry-berry.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Raspberry+Soda';" alt="OG Infused G Soda Raspberry" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG G Soda - Cherry-berry(4 =R350) </p>
                         <p class="text-accent text-lg font-bold mt-1">R70</p>
                     </div>
-                    <!-- Item 5: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower3">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush';" alt="OG Kush Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <img src="images/ogkush.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush';" alt="OG Kush Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG Kush (Indica)</p>
                         <p class="text-accent text-lg font-bold mt-1">R500/3.5g</p>
                     </div>
                     
-                    <!-- Item 6: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower4">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Punch" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Punch';" alt="Purple Punch Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Purple Punch (Indica)</p>
                         <p class="text-accent text-lg font-bold mt-1">R400/3.5g</p>
                     </div>
-                    <!-- Item 7: OG G Soda - Cherry Berry -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink4">
                         <img src="images/Raspberry-soda.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Cherry+Berry+Soda';" alt="OG Infused G Soda Cherry Berry" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG G Soda&2 Gummy packs</p>
                         <p class="text-accent text-lg font-bold mt-1">R350</p>
                     </div>
-                    <!-- Item 8: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower5">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Gelato" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Gelato';" alt="Gelato Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <img src="images/gelato.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Gelato';" alt="Gelato Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Gelato (Hybrid)</p>
                         <p class="text-accent text-lg font-bold mt-1">R520/3.5g</p>
                     </div>
-                    <!-- Item 9: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower6">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Durban+Poison" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Durban+Poison';" alt="Durban Poison Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Durban Poison (Sativa)</p>
                         <p class="text-accent text-lg font-bold mt-1">R470/3.5g</p>
                     </div>
-                    <!-- Item 10: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower1">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream';" alt="Blue Dream Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Blue Dream (Sativa)</p>
@@ -356,12 +327,10 @@
             </div>
         </section>
         
-        <!-- Reviews Section -->
         <section id="reviews" class="py-20 bg-primary/10">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
                 <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-primary/30 pb-2 max-w-max mx-auto text-primary">Client Reviews</h2>
 
-                <!-- Review Submission Form -->
                 <div class="mb-12 p-6 bg-white rounded-xl shadow-xl">
                     <h3 class="text-2xl font-semibold mb-4 text-accent">Leave Your Review</h3>
                     <form id="review-form" class="space-y-4">
@@ -393,16 +362,13 @@
                     </form>
                 </div>
 
-                <!-- Review Display Area -->
                 <div id="reviews-container" class="space-y-6">
-                    <!-- Reviews will be injected here -->
                     <p id="reviews-loading" class="text-center text-text-dark/70">Loading reviews...</p>
                 </div>
 
             </div>
         </section>
 
-        <!-- About Section -->
         <section id="about" class="py-20 bg-secondary/50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -423,7 +389,6 @@
             </div>
         </section>
         
-        <!-- Order Form Section -->
         <section id="order" class="py-20 bg-white">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
                 <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent/30 pb-2 max-w-max mx-auto">Place Your Order</h2>
@@ -465,7 +430,6 @@
             </div>
         </section>
         
-        <!-- Legal Disclaimers Section (IMPORTANT) -->
         <section id="disclaimers" class="py-16 bg-primary/90 text-secondary">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-center mb-8 border-b-2 border-secondary/50 pb-2 max-w-max mx-auto">Legal & Safety Information</h2>
@@ -479,12 +443,10 @@
             </div>
         </section>
 
-        <!-- Footer -->
         <footer class="bg-primary text-white py-8">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
                     
-                    <!-- Left Column: Branding and Links -->
                     <div>
                         <h4 class="text-2xl font-extrabold text-accent mb-3">OG EDIBLES1738</h4>
                         <p class="text-sm text-secondary/70 mb-4">Premium quality, discreet delivery, focused on your elevated experience.</p>
@@ -494,7 +456,6 @@
                         <a href="#disclaimers" class="text-sm hover:text-accent block">Legal & Safety</a>
                     </div>
                     
-                    <!-- Center Column: Service Area Map -->
                     <div class="md:col-span-1">
                         <h4 class="text-lg font-semibold mb-3 text-secondary">Service Area (Approximate)</h4>
                         <div class="aspect-video w-full rounded-lg overflow-hidden border-2 border-accent">
@@ -512,7 +473,6 @@
                         <p class="text-xs mt-2 text-secondary/50 italic">Please confirm exact service boundaries when ordering.</p>
                     </div>
 
-                    <!-- Right Column: Contact and Legal Note -->
                     <div>
                         <h4 class="text-lg font-semibold mb-3 text-secondary">Contact Us</h4>
                         <p class="text-sm text-secondary/70">
@@ -520,7 +480,7 @@
                             Email:ogedibles1738@gmailcom
                         </p>
                         <div class="mt-4 pt-4 border-t border-secondary/20">
-                            <p class="text-xs text-secondary/50">&copy; 2024 OG EDIBLES1738. All rights reserved.</p>
+                            <p class="text-xs text-secondary/50">© 2024 OG EDIBLES1738. All rights reserved.</p>
                         </div>
                     </div>
                 </div>
@@ -529,11 +489,6 @@
 
     </div>
     
-    <!-- 
-        ================================================================
-        --- JavaScript/Firebase Logic Section (Conceptual script.js) --- 
-        ================================================================
-    -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -543,10 +498,21 @@
         // Set Firebase logging level for debugging
         setLogLevel('Debug');
         
-        // --- GLOBAL FIREBASE VARIABLES (provided by the environment) ---
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
-        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
-        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+        // --- GLOBAL FIREBASE VARIABLES (REPLACED WITH CONFIG PLACEHOLDERS) ---
+        // 🚨 IMPORTANT: REPLACE THE PLACEHOLDERS BELOW WITH YOUR ACTUAL FIREBASE CONFIGURATION OBJECT 🚨
+        const firebaseConfig = {
+  apiKey: "AIzaSyDg5qg3WyFTw47sIT79ebjL7NovvfS3fQg",
+  authDomain: "og-edibles---reviews.firebaseapp.com",
+  projectId: "og-edibles---reviews",
+  storageBucket: "og-edibles---reviews.firebasestorage.app",
+  messagingSenderId: "932728051152",
+  appId: "1:932728051152:web:3ff2345af63c91e691d5d5",
+  measurementId: "G-BL0XW6REQX"
+};
+        
+        // Define appId from the config
+        const appId = firebaseConfig.appId;
+        const initialAuthToken = null; // Assuming standard anonymous sign-in for a simple site
 
         let db = null;
         let auth = null;
@@ -759,7 +725,10 @@
             submitBtn.textContent = 'Submitting...';
 
             try {
-                const reviewsCollectionPath = `artifacts/${appId}/public/data/reviews`;
+                // IMPORTANT: The reviewsCollectionPath assumes a specific Firestore structure for a multi-tenant environment.
+                // If you are using a simple project, the path might just be 'reviews'. 
+                // Using the `appId` in the path is generally correct for a cloud-hosted environment.
+                const reviewsCollectionPath = `artifacts/${appId}/public/data/reviews`; 
                 const reviewsCollectionRef = collection(db, reviewsCollectionPath);
                 
                 await fetchWithRetry(() => addDoc(reviewsCollectionRef, {
@@ -821,8 +790,10 @@
         }
 
         async function initFirebaseAndAuth() {
-            if (!firebaseConfig) {
-                console.error("Firebase configuration is missing.");
+            if (!firebaseConfig.apiKey) {
+                console.error("Firebase configuration is missing or incomplete. Please update the firebaseConfig object with your project keys.");
+                document.getElementById('reviews-container').innerHTML = `<p class="text-center text-red-600">Firebase Error: Missing Configuration Keys.</p>`;
+                document.getElementById('user-id-display').textContent = "CONFIG ERROR";
                 return;
             }
 
