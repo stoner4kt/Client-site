@@ -5,24 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OG EDIBLES1738 - Premium Cannabis & Edibles</title>
 
-    <!-- 1. Google Analytics (GA4) Tracking Snippet -->
-    <!-- NOTE: Replace 'G-XXXXXXXXXX' with the actual tracking ID -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script>
-    
-    <!-- 2. Google Search Console Verification Meta Tag -->
-    <!-- NOTE: Replace 'YOUR_VERIFICATION_CODE' with the actual code from Search Console -->
-    <meta name="google-site-verification" content="YOUR_VERIFICATION_CODE" />
-
     <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configure Tailwind for Inter font and custom colors -->
     <script>
+        // --- Configuration Section (Conceptual CSS part 1) ---
         tailwind.config = {
             theme: {
                 extend: {
@@ -40,14 +26,14 @@
         }
     </script>
     <style>
-        /* General styles */
+        /* --- Custom Styles Section (Conceptual CSS part 2) --- */
         body {
             background-color: #FFFFFF;
         }
         .product-card {
             transition: all 0.3s ease;
-            cursor: pointer; /* Indicate interactivity */
-            user-select: none; /* Prevent text selection on touch/click */
+            cursor: pointer;
+            user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
         }
@@ -80,7 +66,7 @@
             position: fixed;
             top: 0;
             right: 0;
-            width: 280px; /* fixed width for drawer */
+            width: 280px;
             height: 100%;
             background-color: white;
             z-index: 50;
@@ -106,16 +92,16 @@
             display: block;
         }
 
-        /* Product Tooltip Styling - Initial state (visually hidden but allows width calculation) */
+        /* Product Tooltip Styling */
         #product-tooltip {
             min-width: 180px;
-            max-width: 90vw; /* Responsive width */
+            max-width: 90vw;
             transition: opacity 0.2s ease, transform 0.2s ease;
             opacity: 0;
             transform: translateY(10px);
-            left: -9999px; /* Initial off-screen position for safety */
+            left: -9999px;
+            z-index: 50; 
         }
-        /* Target state for visible tooltip */
         #product-tooltip.visible {
             opacity: 1 !important;
             transform: translateY(0) !important;
@@ -124,7 +110,13 @@
 </head>
 <body class="font-sans text-text-dark">
 
-    <!-- Age Verification Gate (MUST BE VISIBLE ON LOAD) -->
+    <!-- 
+        ================================================================
+        --- HTML Structure Section (Conceptual index.html body) --- 
+        ================================================================
+    -->
+
+    <!-- Age Verification Gate -->
     <div id="age-gate-overlay">
         <div class="bg-white p-10 md:p-16 rounded-xl shadow-2xl max-w-lg w-11/12 text-center border-t-4 border-accent">
             <h1 class="text-3xl font-bold text-primary mb-4">Welcome to OG EDIBLES1738</h1>
@@ -140,10 +132,8 @@
         </div>
     </div>
 
-    <!-- Mobile Menu Backdrop -->
+    <!-- Mobile Menu Drawer and Backdrop -->
     <div id="menu-backdrop" class="hidden-gate"></div>
-    
-    <!-- Mobile Menu Drawer (Hidden by default) -->
     <div id="mobile-menu" class="lg:hidden">
         <div class="flex justify-between items-center mb-6 border-b pb-3 border-primary/20">
             <h2 class="text-xl font-bold text-primary">Menu</h2>
@@ -153,6 +143,7 @@
         </div>
         <nav class="space-y-4">
             <a href="#products" class="block text-lg font-medium text-text-dark hover:text-accent transition duration-150" onclick="closeMenu()">Menu</a>
+            <a href="#reviews" class="block text-lg font-medium text-text-dark hover:text-accent transition duration-150" onclick="closeMenu()">Client Reviews</a>
             <a href="#about" class="block text-lg font-medium text-text-dark hover:text-accent transition duration-150" onclick="closeMenu()">Our Story</a>
             <a href="#disclaimers" class="block text-lg font-medium text-text-dark hover:text-accent transition duration-150" onclick="closeMenu()">Legal</a>
             <a href="#order" class="block text-lg font-medium px-4 py-2 border border-accent rounded-full text-accent hover:bg-accent hover:text-white transition duration-150 mt-4" onclick="closeMenu()">Order Now</a>
@@ -165,13 +156,12 @@
         </div>
     </div>
 
-    <!-- Main Content (Hidden until Age Confirmed) -->
+    <!-- Main Content -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 pointer-events-none">
 
-        <!-- Tooltip for Product Description (Positioned Fixed/Absolute via JS) -->
+        <!-- Tooltip for Product Description -->
         <div id="product-tooltip" class="fixed z-50 p-3 bg-primary text-white rounded-xl shadow-2xl transition-all duration-200 pointer-events-none">
             <p id="tooltip-content" class="text-sm"></p>
-            <!-- Arrow element - position will be set by JS dynamically -->
             <div id="tooltip-arrow" class="absolute w-3 h-3 bg-primary transform rotate-45 -bottom-1 rounded-sm" style="left: 50%;"></div>
         </div>
 
@@ -191,6 +181,7 @@
                 <a href="#hero" class="text-2xl font-extrabold text-primary tracking-wider">OG EDIBLES1738</a>
                 <nav class="hidden md:flex space-x-8">
                     <a href="#products" class="text-text-dark hover:text-accent transition duration-150">Menu</a>
+                    <a href="#reviews" class="text-text-dark hover:text-accent transition duration-150">Client Reviews</a>
                     <a href="#about" class="text-text-dark hover:text-accent transition duration-150">Our Story</a>
                     <a href="#disclaimers" class="text-text-dark hover:text-accent transition duration-150">Legal</a>
                     <a href="#order" class="px-4 py-1 border border-accent rounded-full text-accent hover:bg-accent hover:text-white transition duration-150">Order Now</a>
@@ -201,6 +192,11 @@
                 </button>
             </div>
         </header>
+        
+        <!-- Mandatory User ID Display -->
+        <div class="fixed top-16 left-0 bg-yellow-100 text-yellow-800 p-2 text-xs w-full z-40 text-center shadow-md">
+            Your User ID (for collaboration): <span id="user-id-display" class="font-mono font-bold">Loading...</span>
+        </div>
 
         <!-- Hero Section -->
         <section id="hero" class="pt-24 pb-16 bg-secondary/70">
@@ -211,152 +207,196 @@
                 <p class="text-xl md:text-2xl mb-8 text-text-dark/80 max-w-4xl mx-auto">
                     Curated selection of raw flower, delicious edibles, and innovative cannabis-infused beverages. Discover your perfect dose.
                 </p>
-                <!-- Large Banner Image -->
-                <img src="https://placehold.co/1200x400/1E4D2B/E5F3E7?text=OG+EDIBLES1738+Artisan+Selection" alt="High-quality cannabis products banner" class="mx-auto mt-10 rounded-xl shadow-xl w-full max-w-5xl">
+                <img src="images/logo.jpg" alt="High-quality cannabis products banner" class="mx-auto mt-10 rounded-xl shadow-xl w-full max-w-5xl">
                 <a href="#products" class="inline-block px-8 py-3 text-lg font-semibold bg-primary text-white rounded-full shadow-lg hover:bg-accent transition duration-300 transform hover:scale-105 mt-8">
                     View Our Full Menu
                 </a>
             </div>
         </section>
 
-        <!-- Menu & Products Section (Grid Display) -->
+        <!-- Menu & Products Section -->
         <section id="products" class="py-20">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent/30 pb-2 max-w-max mx-auto">Menu & Products</h2>
                 
                 <!-- Edibles Grid -->
-                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Gummies & Edibles</h3>
+                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Gummies, Chocolates & Baked Bliss</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-16">
                     
-                    <!-- Edible Item 1 -->
+                    <!-- Edible Item 1: OG Gummy Pack -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy1">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Mixed+Gummies" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Mixed+Gummies';" alt="Mixed Fruit Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Mixed Fruit (100mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$20</p>
+                        <img src="images/gummy-pack.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Gummy+Pack';" alt="OG Infused Gummy Pack" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Gummy Pack (4-Count)</p>
+                        <p class="text-accent text-lg font-bold mt-1">R150</p>
                     </div>
-                    <!-- Edible Item 2 -->
+                    <!-- Edible Item 2: OG Infused Chocolate Cubes -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy2">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Squares" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Squares';" alt="Chocolate Squares" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Chocolate (50mg/ea)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$25</p>
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Cubes" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Cubes';" alt="OG Infused Chocolate Cubes" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Chocolate Cubes (10-Pack)</p>
+                        <p class="text-accent text-lg font-bold mt-1">R150</p>
                     </div>
-                    <!-- Edible Item 3 -->
+                    <!-- Edible Item 3: Vegan Sativa Tarts (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy3">
                         <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts';" alt="Vegan Cannabis Tarts" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Vegan Sativa Tarts</p>
-                        <p class="text-accent text-lg font-bold mt-1">$18</p>
+                        <p class="text-accent text-lg font-bold mt-1">R180</p>
                     </div>
-                    <!-- Edible Item 4 -->
+                    <!-- Edible Item 4: Infused Cereal Bar (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy4">
                         <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Cereal+Bar" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Cereal+Bar';" alt="Infused Cereal Bar" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Infused Cereal Bar</p>
-                        <p class="text-accent text-lg font-bold mt-1">$22</p>
+                        <p class="font-semibold text-text-dark">OG King blunt (rolling paper) </p>
+                        <p class="text-accent text-lg font-bold mt-1">R220</p>
                     </div>
-                     <!-- Edible Item 5 -->
+                     <!-- Edible Item 5: OG Infused Ice Cream (New) -->
                      <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy5">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Hard+Candy" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Hard+Candy';" alt="Infused Hard Candy" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Artisan Hard Candy</p>
-                        <p class="text-accent text-lg font-bold mt-1">$15</p>
+                        <img src="images/icecream.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Ice+Cream';" alt="OG Infused Ice Cream" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Infused Ice Cream</p>
+                        <p class="text-accent text-lg font-bold mt-1">R65</p>
                     </div>
                     
-                    <!-- New Edible Item 6 -->
+                    <!-- Edible Item 6: Sour Watermelon (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy6">
                         <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Sour+Watermelon" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Sour+Watermelon';" alt="Sour Watermelon Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Sour Watermelon (300mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$35</p>
+                        <p class="text-accent text-lg font-bold mt-1">R350</p>
                     </div>
-                    <!-- New Edible Item 7 -->
+                    <!-- Edible Item 7: Hazelnut Brownies (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy7">
                         <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Hazelnut+Brownie" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Hazelnut+Brownie';" alt="Hazelnut Brownies" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Hazelnut Brownies (Indica)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$30</p>
+                        <p class="text-accent text-lg font-bold mt-1">R300</p>
                     </div>
-                    <!-- New Edible Item 8 -->
+                    <!-- Edible Item 8: Espresso Chews (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy8">
                         <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Espresso+Chews" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Espresso+Chews';" alt="Espresso Chews" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Espresso Chews (5mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$10</p>
+                        <p class="text-accent text-lg font-bold mt-1">R100</p>
                     </div>
-                    <!-- New Edible Item 9 -->
+                    <!-- Edible Item 9: OG Infused 3 Cookie Jar (New) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy9">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Cookie+Dough+Bites" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Cookie+Dough+Bites';" alt="Cookie Dough Bites" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Cookie Dough Bites (Hybrid)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$28</p>
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Cookie+Jar" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Cookie+Jar';" alt="OG Infused Cookie Jar" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Infused Cookie Jar (3-Pack)</p>
+                        <p class="text-accent text-lg font-bold mt-1">R100</p>
                     </div>
-                    <!-- New Edible Item 10 -->
+                    <!-- Edible Item 10: Tropical Jelly Beans (Placeholder kept) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy10">
                         <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Tropical+Jelly+Beans" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Tropical+Jelly+Beans';" alt="Tropical Jelly Beans" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Tropical Jelly Beans (150mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$24</p>
+                        <p class="text-accent text-lg font-bold mt-1">R240</p>
                     </div>
 
                 </div>
 
                 <!-- Flower & Beverages Grid -->
-                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Flower & Beverages</h3>
+                <h3 class="text-3xl font-bold text-primary mb-6 text-center">G Sodas & Flower</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
 
-                    <!-- Item 1: Flower -->
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower1">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream';" alt="Blue Dream Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Blue Dream (Sativa)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$45/3.5g</p>
-                    </div>
-                    <!-- Item 2: Beverage -->
+                    <!-- Item 1: OG G Soda - Grape -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink1">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Iced+Coffee+Shot" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Iced+Coffee+Shot';" alt="Iced Coffee Shot" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Iced Coffee Shot (10mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$12</p>
+                        <img src="images/grape.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Grape+Soda';" alt="OG Infused G Soda Grape" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG G Soda - Grape</p>
+                        <p class="text-accent text-lg font-bold mt-1">R70</p>
                     </div>
-                    <!-- Item 3: Flower -->
+                    <!-- Item 2: OG G Soda - Lemon -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink2">
+                        <img src="images/og-lemon.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Lemon+Soda';" alt="OG Infused G Soda Lemon" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG G Soda - Lemon</p>
+                        <p class="text-accent text-lg font-bold mt-1">R70</p>
+                    </div>
+                    <!-- Item 3: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower2">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake';" alt="Wedding Cake Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Wedding Cake (Hybrid)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$48/3.5g</p>
+                        <p class="text-accent text-lg font-bold mt-1">R480/3.5g</p>
                     </div>
-                    <!-- Item 4: Beverage -->
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink2">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Ginger+Ale" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Ginger+Ale';" alt="Ginger Ale Mixer" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Ginger Ale (2.5mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$7</p>
+                    <!-- Item 4: OG G Soda - Raspberry -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink3">
+                        <img src="images/cherry-berry.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Raspberry+Soda';" alt="OG Infused G Soda Raspberry" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG G Soda - Cherry-berry</p>
+                        <p class="text-accent text-lg font-bold mt-1">R70</p>
                     </div>
-                    <!-- Item 5: Flower -->
+                    <!-- Item 5: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower3">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush';" alt="OG Kush Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG Kush (Indica)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$50/3.5g</p>
+                        <p class="text-accent text-lg font-bold mt-1">R500/3.5g</p>
                     </div>
                     
-                    <!-- New Flower Item 6 -->
+                    <!-- Item 6: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower4">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Punch" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Punch';" alt="Purple Punch Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Purple Punch (Indica)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$40/3.5g</p>
+                        <p class="text-accent text-lg font-bold mt-1">R400/3.5g</p>
                     </div>
-                    <!-- New Beverage Item 7 -->
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink3">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Mango+Water" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Mango+Water';" alt="Mango Sparkling Water" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Mango Sparkling Water (5mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$8</p>
+                    <!-- Item 7: OG G Soda - Cherry Berry -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink4">
+                        <img src="images/Raspberry-soda.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Cherry+Berry+Soda';" alt="OG Infused G Soda Cherry Berry" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG G Soda - RaspBerry</p>
+                        <p class="text-accent text-lg font-bold mt-1">R70</p>
                     </div>
-                    <!-- New Flower Item 8 -->
+                    <!-- Item 8: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower5">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Gelato" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Gelato';" alt="Gelato Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Gelato (Hybrid)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$52/3.5g</p>
+                        <p class="text-accent text-lg font-bold mt-1">R520/3.5g</p>
                     </div>
-                    <!-- New Beverage Item 9 -->
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink4">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Lemonade+Mixer" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Lemonade+Mixer';" alt="Lemonade Mixer" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Lemonade Mixer (10mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$14</p>
-                    </div>
-                    <!-- New Flower Item 10 -->
+                    <!-- Item 9: Flower (Placeholder kept, price updated) -->
                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower6">
                         <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Durban+Poison" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Durban+Poison';" alt="Durban Poison Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Durban Poison (Sativa)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$47/3.5g</p>
+                        <p class="text-accent text-lg font-bold mt-1">R470/3.5g</p>
                     </div>
+                    <!-- Item 10: Flower (Placeholder kept, price updated) -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower1">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream';" alt="Blue Dream Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Blue Dream (Sativa)</p>
+                        <p class="text-accent text-lg font-bold mt-1">R450/3.5g</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Reviews Section -->
+        <section id="reviews" class="py-20 bg-primary/10">
+            <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+                <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-primary/30 pb-2 max-w-max mx-auto text-primary">Client Reviews</h2>
+
+                <!-- Review Submission Form -->
+                <div class="mb-12 p-6 bg-white rounded-xl shadow-xl">
+                    <h3 class="text-2xl font-semibold mb-4 text-accent">Leave Your Review</h3>
+                    <form id="review-form" class="space-y-4">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label for="reviewer-name" class="block text-sm font-medium text-text-dark">Your Name</label>
+                                <input type="text" id="reviewer-name" placeholder="E.g., OG Customer" required class="w-full px-4 py-2 border border-primary/30 rounded-lg focus:ring-accent focus:border-accent">
+                            </div>
+                            <div>
+                                <label for="review-rating" class="block text-sm font-medium text-text-dark">Rating (1-5)</label>
+                                <select id="review-rating" required class="w-full px-4 py-2 border border-primary/30 rounded-lg focus:ring-accent focus:border-accent">
+                                    <option value="">Select Rating</option>
+                                    <option value="5">5 - Excellent</option>
+                                    <option value="4">4 - Very Good</option>
+                                    <option value="3">3 - Good</option>
+                                    <option value="2">2 - Fair</option>
+                                    <option value="1">1 - Poor</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="review-text" class="block text-sm font-medium text-text-dark">Your Experience</label>
+                            <textarea id="review-text" rows="3" placeholder="Share your honest feedback about our products or service!" required class="w-full px-4 py-2 border border-primary/30 rounded-lg focus:ring-accent focus:border-accent"></textarea>
+                        </div>
+                        <button type="submit" id="submit-review-btn" class="w-full md:w-auto px-6 py-2 bg-accent text-white font-semibold rounded-full shadow-md hover:bg-primary transition duration-300">
+                            Submit Review
+                        </button>
+                        <p id="review-message" class="text-sm mt-2 text-green-600"></p>
+                    </form>
+                </div>
+
+                <!-- Review Display Area -->
+                <div id="reviews-container" class="space-y-6">
+                    <!-- Reviews will be injected here -->
+                    <p id="reviews-loading" class="text-center text-text-dark/70">Loading reviews...</p>
                 </div>
 
             </div>
@@ -366,7 +406,6 @@
         <section id="about" class="py-20 bg-secondary/50">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <!-- About Image (13/16) -->
                     <img src="https://placehold.co/600x400/A56CFF/FFFFFF?text=Lab+Testing+and+Quality" alt="Third-party lab testing equipment" class="rounded-xl shadow-2xl w-full">
                     <div>
                         <h2 class="text-4xl font-bold mb-6 border-b-2 border-primary/30 pb-2 max-w-max">Our Commitment to Quality</h2>
@@ -389,9 +428,7 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-3xl">
                 <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent/30 pb-2 max-w-max mx-auto">Place Your Order</h2>
                 
-                <!-- Netlify Form Configuration: name attribute is crucial, along with data-netlify="true" and the hidden field -->
                 <form name="order-form" method="POST" data-netlify="true" class="space-y-6 p-8 bg-secondary/30 rounded-xl shadow-2xl">
-                    <!-- Netlify Hidden Field (MANDATORY for Netlify Forms) -->
                     <input type="hidden" name="form-name" value="order-form" />
                     
                     <p class="text-sm font-semibold text-primary/80">
@@ -410,14 +447,13 @@
                         </div>
                     </div>
                     
-                    <!-- Order details image (14/16) -->
                     <img src="https://placehold.co/800x200/1E4D2B/E5F3E7?text=OG+EDIBLES1738+Order+Details" alt="Detailed order checklist illustration" class="mx-auto rounded-lg shadow-md">
 
                     <div>
                         <label for="order-details" class="block text-sm font-medium text-text-dark mb-1">Specify Your Order Details (Required)</label>
                         <textarea id="order-details" name="Order Details" rows="5" required 
                                   class="w-full px-4 py-2 border border-primary/30 rounded-lg focus:ring-accent focus:border-accent transition duration-150"
-                                  placeholder="Example: 1x Blue Dream (3.5g), 2x Sparkling Citrus Soda (5mg), 1x Mixed Fruit Gummies (100mg)"></textarea>
+                                  placeholder="Example: 1x OG Gummy Pack (R150), 2x OG G Soda - Lemon (R70), 1x Wedding Cake (R480/3.5g)"></textarea>
                     </div>
 
                     <div class="text-center">
@@ -434,11 +470,9 @@
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-3xl font-bold text-center mb-8 border-b-2 border-secondary/50 pb-2 max-w-max mx-auto">Legal & Safety Information</h2>
                 <div class="max-w-4xl mx-auto space-y-4 text-sm">
-                    <!-- Disclaimer Image 1 (15/16) -->
                     <img src="https://placehold.co/800x150/A56CFF/FFFFFF?text=Age+Restriction+Sign" alt="Age restriction warning sign" class="mx-auto rounded-lg shadow-md mb-4 w-full">
                     <p><strong>Age Restriction:</strong> All products from OG EDIBLES1738 are for consumers 21 years of age or older. We require valid photo identification upon delivery or pickup.</p>
                     <p><strong>Disclaimer:</strong> Cannabis products may only be sold legally in certain jurisdictions. By using this site, you affirm that you are in a location where the purchase and possession of these products is legal for recreational or medicinal use.</p>
-                    <!-- Disclaimer Image 2 (16/16) -->
                     <img src="https://placehold.co/800x150/1E4D2B/E5F3E7?text=Responsible+Use+Message" alt="Responsible use reminder graphic" class="mx-auto rounded-lg shadow-md mt-4 w-full">
                     <p><strong>Responsibility:</strong> Please consume responsibly. Do not operate heavy machinery or drive after consumption. Keep all products out of reach of children and pets. Dosage information is for reference only; individual results may vary.</p>
                 </div>
@@ -455,6 +489,7 @@
                         <h4 class="text-2xl font-extrabold text-accent mb-3">OG EDIBLES1738</h4>
                         <p class="text-sm text-secondary/70 mb-4">Premium quality, discreet delivery, focused on your elevated experience.</p>
                         <a href="#products" class="text-sm hover:text-accent block">Menu</a>
+                        <a href="#reviews" class="text-sm hover:text-accent block">Client Reviews</a>
                         <a href="#about" class="text-sm hover:text-accent block">Our Story</a>
                         <a href="#disclaimers" class="text-sm hover:text-accent block">Legal & Safety</a>
                     </div>
@@ -462,8 +497,6 @@
                     <!-- Center Column: Service Area Map -->
                     <div class="md:col-span-1">
                         <h4 class="text-lg font-semibold mb-3 text-secondary">Service Area (Approximate)</h4>
-                        <!-- 3. Google Maps iframe -->
-                        <!-- Placeholder map centered on Los Angeles, common for delivery services -->
                         <div class="aspect-video w-full rounded-lg overflow-hidden border-2 border-accent">
                             <iframe 
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d105825.0069324059!2d-118.35824984251786!3d34.05223420088998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2c75ddc27da13%3A0xe22fdf6f254608f4!2sLos%20Angeles%2C%20CA%2C%20USA!5e0!3m2!1sen!2s!4v1700000000000!5m2!1sen!2s" 
@@ -496,135 +529,120 @@
 
     </div>
     
-    <script>
+    <!-- 
+        ================================================================
+        --- JavaScript/Firebase Logic Section (Conceptual script.js) --- 
+        ================================================================
+    -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, query, onSnapshot, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        
+        // Set Firebase logging level for debugging
+        setLogLevel('Debug');
+        
+        // --- GLOBAL FIREBASE VARIABLES (provided by the environment) ---
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db = null;
+        let auth = null;
+        let currentUserId = null;
+        let isAuthReady = false;
+
         // --- PRODUCT DESCRIPTION DATA ---
         const productDescriptions = {
-            'gummy1': 'Our signature mixed fruit gummies (10x10mg), potent and delicious. Perfect for a predictable and balanced high. Indica dominant.',
-            'gummy2': 'Rich, dark chocolate squares. Each piece is 50mg for experienced users. Smooth texture and intense flavor.',
-            'gummy3': 'Light, flaky sativa-infused tarts. Made with all-natural, vegan ingredients for an uplifting and energetic effect.',
-            'gummy4': 'A classic infused cereal bar packed with flavor and 100mg of hybrid goodness. Great for long-lasting effects.',
-            'gummy5': 'Artisan hard candies, long-lasting flavor and subtle dose delivery (5mg per piece). Excellent for micro-dosing.',
-            'gummy6': 'Extremely potent sour watermelon gummies (300mg total). Recommended only for high-tolerance consumers. Sativa hybrid.',
-            'gummy7': 'Decadent hazelnut brownies, deeply relaxing indica effects. Enjoy a couch-lock experience with a gourmet taste.',
-            'gummy8': 'Quick-dissolving 5mg espresso chews for a clear-headed, focused high. Low dose and fast acting.',
-            'gummy9': 'Edible cookie dough bites with a balanced hybrid strain infusion. Delicious and perfectly safe to eat raw.',
-            'gummy10': 'Tropical blend jelly beans, 150mg total package. A fun, flavorful way to enjoy a medium-intensity experience.',
-
-            'flower1': 'Blue Dream: A popular Sativa-dominant hybrid, known for balanced full-body relaxation with gentle cerebral invigoration.',
-            'drink1': '10mg Iced Coffee Shot. Fast-acting THC nano-emulsion mixed with premium cold-brew coffee. Great for a morning lift.',
-            'flower2': 'Wedding Cake: A potent Indica-dominant hybrid offering euphoric and deeply relaxing effects. Great for winding down.',
-            'drink2': 'Light 2.5mg Ginger Ale mixer. Low dose, ideal for social settings or mixing mocktails without heavy effects.',
-            'flower3': 'OG Kush: A true Indica legend, delivering powerful sedative effects and euphoria. Best for evening use.',
-            'flower4': 'Purple Punch: A powerful Indica cross, famous for its sweet grape and berry aromas and strong, relaxing punch.',
-            'drink3': '5mg Mango Sparkling Water. Zero calorie, crisp, and refreshing. Provides a light, sociable buzz.',
-            'flower5': 'Gelato: A flavorful Hybrid known for its potent, balanced high that promotes creativity and relaxation without sedation.',
-            'drink4': '10mg Lemonade Mixer. Highly versatile and potent, perfect for mixing into any beverage for a custom high.',
-            'flower6': 'Durban Poison: A pure Sativa strain known for its potent energetic and uplifting effects. Ideal daytime smoke.',
+            'gummy1': 'OG Gummy Pack: Fruity, potent, and irresistibly yummy—these premium candy gummies elevate your mood, boost your vibe, and spark that sensual energy. A true luxury treat for body, mind, and pleasure. (R150/4-Pack)',
+            'gummy2': 'OG Infused Chocolate Cubes: Smooth, rich, and melt-in-your-mouth delicious—one bite and you’ll be floating, vibing, and levitating in the clouds. Pure bliss that takes your taste buds and your mood higher. (R150/10 Cubes)',
+            'gummy5': 'OG Infused Ice Cream: Creamy, dreamy, and decadently infused—every scoop melts in your mouth and elevates your vibe. Chill, relax, and let the good vibes take you higher. (R65)',
+            'gummy9': 'OG Infused Cookie Jar: Handcrafted for that smooth, euphoric vibe that melts away stress and leaves you floating in calm luxury. Tastes like heaven, feels like peace. (R100/3-Pack)',
+            'gummy3': 'Light, flaky sativa-infused tarts. Made with all-natural, vegan ingredients for an uplifting and energetic effect. (R180)',
+            'gummy4': 'A classic infused cereal bar packed with flavor and 100mg of hybrid goodness. Great for long-lasting effects. (R220)',
+            'gummy6': 'Extremely potent sour watermelon gummies (300mg total). Recommended only for high-tolerance consumers. Sativa hybrid. (R350)',
+            'gummy7': 'Decadent hazelnut brownies, deeply relaxing indica effects. Enjoy a couch-lock experience with a gourmet taste. (R300)',
+            'gummy8': 'Quick-dissolving 5mg espresso chews for a clear-headed, focused high. Low dose and fast acting. (R100)',
+            'gummy10': 'Tropical blend jelly beans, 150mg total package. A fun, flavorful way to enjoy a medium-intensity experience. (R240)',
+            'drink1': 'OG G Soda - Grape: Refresh your vibe with the drink that turns every sip into a smooth, uplifting escape. Tastes electric, feels euphoric. (R70 each, 4-Pack R250)',
+            'drink2': 'OG G Soda - Lemon: Refresh your vibe with the drink that turns every sip into a smooth, uplifting escape. Tastes electric, feels euphoric. (R70 each, 4-Pack R250)',
+            'drink3': 'OG G Soda - Raspberry: Refresh your vibe with the drink that turns every sip into a smooth, uplifting escape. Tastes electric, feels euphoric. (R70 each, 4-Pack R250)',
+            'drink4': 'OG G Soda - Cherry Berry: Refresh your vibe with the drink that turns every sip into a smooth, uplifting escape. Tastes electric, feels euphoric. (R70 each, 4-Pack R250)',
+            'flower1': 'Blue Dream (Sativa): Known for balanced full-body relaxation with gentle cerebral invigoration. (R450/3.5g)',
+            'flower2': 'Wedding Cake (Hybrid): Potent Indica-dominant hybrid offering euphoric and deeply relaxing effects. (R480/3.5g)',
+            'flower3': 'OG Kush (Indica): A true Indica legend, delivering powerful sedative effects and euphoria. Best for evening use. (R500/3.5g)',
+            'flower4': 'Purple Punch (Indica): Famous for its sweet grape and berry aromas and strong, relaxing punch. (R400/3.5g)',
+            'flower5': 'Gelato (Hybrid): Known for its potent, balanced high that promotes creativity and relaxation without sedation. (R520/3.5g)',
+            'flower6': 'Durban Poison (Sativa): A pure Sativa strain known for its potent energetic and uplifting effects. Ideal daytime smoke. (R470/3.5g)',
         };
 
-        // --- GLOBAL VARIABLES ---
-        let currentTooltipTimeout = null;
-        
-        // --- MOBILE MENU LOGIC ---
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const backdrop = document.getElementById('menu-backdrop');
-            menu.classList.toggle('open');
-            backdrop.classList.toggle('open');
-            document.body.classList.toggle('overflow-hidden', menu.classList.contains('open'));
-        }
 
-        function closeMenu() {
-             const menu = document.getElementById('mobile-menu');
-             if (menu.classList.contains('open')) {
-                 toggleMenu();
-             }
-        }
-        
         // --- TOOLTIP LOGIC ---
+        let currentTooltipTimeout = null;
         const tooltip = document.getElementById('product-tooltip');
         const tooltipContent = document.getElementById('tooltip-content');
-        
+
         function showTooltip(targetElement) {
             clearTimeout(currentTooltipTimeout);
             const productId = targetElement.dataset.productId;
             if (!productId || !productDescriptions[productId]) return;
 
             const rect = targetElement.getBoundingClientRect();
-            const screenMargin = 12; // Minimum margin from viewport edge
-            
-            // 1. Set content and ensure base visibility for width calculation
+            const screenMargin = 12;
+
             tooltipContent.textContent = productDescriptions[productId];
-            tooltip.style.opacity = '0.01'; // Nearly transparent but allows width calculation
+            tooltip.style.opacity = '0.01'; 
+            tooltip.style.left = '50%';
             tooltip.style.transform = 'none';
-
-            // 2. Get the actual width of the tooltip
-            const tooltipWidth = tooltip.offsetWidth; 
-            
-            // 3. Calculate the card's center point
-            const cardCenter = rect.left + rect.width / 2;
-            
-            // 4. Calculate initial left position (centered on card)
-            let targetLeft = cardCenter - (tooltipWidth / 2);
-            
-            // 5. Adjustments for screen boundaries (Horizontal)
-            
-            // Check left clip: If target left is less than the screen margin, shift right.
-            if (targetLeft < screenMargin) {
-                targetLeft = screenMargin;
-            }
-
-            // Check right clip: If target right is past the screen margin, shift left.
-            const maxLeftAllowed = window.innerWidth - tooltipWidth - screenMargin;
-            if (targetLeft > maxLeftAllowed) {
-                targetLeft = maxLeftAllowed;
-            }
-            // Ensure targetLeft doesn't go below the minimum margin after all checks
-            if (targetLeft < screenMargin) targetLeft = screenMargin;
-            
-            // 6. Calculate the relative position of the arrow (distance from the tooltip's new left edge)
-            const arrowLeft = cardCenter - targetLeft; 
-
-            // 7. Calculate Top position (above the element)
-            const targetTop = rect.top - tooltip.offsetHeight - 10; 
-
-            // 8. Apply final positions
-            tooltip.style.left = `${targetLeft}px`;
-            tooltip.style.top = `${targetTop}px`; 
-            
-            // 9. Position the arrow element
-            const arrow = document.getElementById('tooltip-arrow');
-            if (arrow) {
-                // Set the arrow's left position relative to the tooltip's left edge
-                arrow.style.left = `${arrowLeft}px`;
-                // Keep the arrow visually centered on this point
-                arrow.style.transform = 'translateX(-50%) rotate(45deg)'; 
-            }
-
-            // 10. Make the tooltip fully visible with transition
             tooltip.classList.add('visible');
+            
+            requestAnimationFrame(() => {
+                const tooltipWidth = tooltip.offsetWidth; 
+                const tooltipHeight = tooltip.offsetHeight;
+                const cardCenter = rect.left + rect.width / 2;
+                let targetLeft = cardCenter - (tooltipWidth / 2);
+                
+                if (targetLeft < screenMargin) {
+                    targetLeft = screenMargin;
+                }
+                const maxLeftAllowed = window.innerWidth - tooltipWidth - screenMargin;
+                if (targetLeft > maxLeftAllowed) {
+                    targetLeft = maxLeftAllowed;
+                }
+                if (targetLeft < screenMargin) targetLeft = screenMargin;
+                
+                const arrowLeft = cardCenter - targetLeft;
+                const targetTop = rect.top - tooltipHeight - 10; 
+
+                tooltip.style.left = `${targetLeft}px`;
+                tooltip.style.top = `${targetTop}px`; 
+                
+                const arrow = document.getElementById('tooltip-arrow');
+                if (arrow) {
+                    arrow.style.left = `${arrowLeft}px`;
+                    arrow.style.transform = 'translateX(-50%) rotate(45deg)'; 
+                }
+
+                tooltip.style.opacity = '1';
+                tooltip.style.transform = 'translateY(0)'; 
+            });
         }
 
         function hideTooltip() {
             clearTimeout(currentTooltipTimeout);
-            // Hide instantly on touchend/mouseup by removing the visible class
             tooltip.classList.remove('visible');
-            
-            // Reset state using inline styles for transition effects
             tooltip.style.opacity = '0';
             tooltip.style.transform = 'translateY(10px)'; 
-
-            // Schedule a cleanup to fully hide the element's temporary visibility tag after transition
+            
             currentTooltipTimeout = setTimeout(() => {
-                // Return to off-screen, visually hidden state 
                 tooltip.style.left = '-9999px'; 
                 tooltip.style.opacity = '0';
-            }, 200); // Wait for the 200ms transition
+            }, 200);
         }
 
         function setupProductListeners() {
             document.querySelectorAll('.product-card').forEach(card => {
-                // MOUSE EVENTS
                 card.addEventListener('mousedown', (e) => {
                     e.preventDefault(); 
                     showTooltip(card);
@@ -632,55 +650,273 @@
                 card.addEventListener('mouseup', hideTooltip);
                 card.addEventListener('mouseleave', hideTooltip);
 
-                // TOUCH EVENTS (for mobile)
                 card.addEventListener('touchstart', (e) => {
-                    e.preventDefault(); 
                     showTooltip(card);
-                }, { passive: false }); 
+                }, { passive: true });
                 card.addEventListener('touchend', hideTooltip);
                 card.addEventListener('touchcancel', hideTooltip);
             });
         }
+        
+        // --- MOBILE MENU LOGIC ---
+        window.closeMenu = function() { // Expose to global scope for HTML inline calls
+             const menu = document.getElementById('mobile-menu');
+             if (menu.classList.contains('open')) {
+                 toggleMenu();
+             }
+        }
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            menu.classList.toggle('open');
+            backdrop.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden', menu.classList.contains('open'));
+        }
+        
+        // --- FIREBASE/REVIEWS LOGIC ---
+
+        // Helper to generate star icons
+        function getStarRating(rating) {
+            const fullStar = '<svg class="w-5 h-5 fill-current text-yellow-400" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+            const emptyStar = '<svg class="w-5 h-5 fill-current text-gray-300" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+            
+            let stars = '';
+            for (let i = 1; i <= 5; i++) {
+                stars += i <= rating ? fullStar : emptyStar;
+            }
+            return `<div class="flex">${stars}</div>`;
+        }
+        
+        function renderReviews(reviews) {
+            const container = document.getElementById('reviews-container');
+            const loading = document.getElementById('reviews-loading');
+            
+            // Remove loading indicator
+            if (loading) loading.remove();
+
+            if (reviews.length === 0) {
+                container.innerHTML = '<p class="text-center text-lg text-text-dark/70">No reviews yet. Be the first to share your experience!</p>';
+                return;
+            }
+
+            container.innerHTML = reviews.map(review => {
+                // Safely convert Firestore Timestamp to Date string if available
+                const timestamp = review.timestamp && typeof review.timestamp.toDate === 'function' ? 
+                    new Date(review.timestamp.toDate()).toLocaleDateString() : 
+                    'Just now';
+
+                return `
+                    <div class="p-5 bg-white rounded-xl shadow-md border-l-4 border-accent">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <p class="text-xl font-bold text-primary">${review.userName}</p>
+                                ${getStarRating(review.rating)}
+                            </div>
+                            <span class="text-xs text-text-dark/60">${timestamp}</span>
+                        </div>
+                        <p class="text-base italic text-text-dark/90">${review.text}</p>
+                        <p class="text-xs mt-2 text-primary/50">User ID: ${review.userId}</p>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        // Retries for API calls with exponential backoff
+        async function fetchWithRetry(fn, maxRetries = 5) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    return await fn();
+                } catch (error) {
+                    if (i === maxRetries - 1) throw error;
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+        
+        async function submitReview(e) {
+            e.preventDefault();
+            
+            if (!currentUserId || !db) {
+                console.error("Authentication or Firestore not ready. currentUserId:", currentUserId);
+                document.getElementById('review-message').textContent = "Error: Please wait for the page to load fully.";
+                return;
+            }
+
+            const name = document.getElementById('reviewer-name').value.trim();
+            const rating = parseInt(document.getElementById('review-rating').value, 10);
+            const text = document.getElementById('review-text').value.trim();
+            const messageEl = document.getElementById('review-message');
+            const submitBtn = document.getElementById('submit-review-btn');
+            
+            if (!name || rating < 1 || rating > 5 || !text) {
+                messageEl.textContent = "Please fill in all fields correctly.";
+                messageEl.className = 'text-sm mt-2 text-red-600';
+                return;
+            }
+            
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                const reviewsCollectionPath = `artifacts/${appId}/public/data/reviews`;
+                const reviewsCollectionRef = collection(db, reviewsCollectionPath);
+                
+                await fetchWithRetry(() => addDoc(reviewsCollectionRef, {
+                    userId: currentUserId,
+                    userName: name,
+                    rating: rating,
+                    text: text,
+                    timestamp: serverTimestamp()
+                }));
+                
+                messageEl.textContent = "Review submitted successfully! Thank you.";
+                messageEl.className = 'text-sm mt-2 text-green-600';
+                document.getElementById('review-form').reset();
+            } catch (error) {
+                console.error("Error writing document: ", error);
+                messageEl.textContent = `Error: Failed to submit review. ${error.message}. Check console for details.`;
+                messageEl.className = 'text-sm mt-2 text-red-600';
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Review';
+            }
+        }
+        
+        function setupReviewListener() {
+            if (!db || !isAuthReady) {
+                console.warn("Firestore or Auth not ready for setting up review listener. Skipping setup.");
+                return;
+            }
+            
+            try {
+                const reviewsCollectionPath = `artifacts/${appId}/public/data/reviews`;
+                const reviewsCollectionRef = collection(db, reviewsCollectionPath);
+                const q = query(reviewsCollectionRef); 
+                
+                // Set up real-time listener
+                onSnapshot(q, (snapshot) => {
+                    const reviews = [];
+                    snapshot.forEach((doc) => {
+                        const data = doc.data();
+                        reviews.push({ id: doc.id, ...data });
+                    });
+                    
+                    // Client-side sorting by timestamp (descending - newest first)
+                    reviews.sort((a, b) => {
+                        // Use a fallback of 0 if timestamp is missing or not yet a Firestore Timestamp (e.g., pending serverTimestamp)
+                        const timeA = a.timestamp && typeof a.timestamp.toMillis === 'function' ? a.timestamp.toMillis() : 0;
+                        const timeB = b.timestamp && typeof b.timestamp.toMillis === 'function' ? b.timestamp.toMillis() : 0;
+                        return timeB - timeA; 
+                    });
+
+                    renderReviews(reviews);
+                }, (error) => {
+                    console.error("Error listening to reviews:", error);
+                    document.getElementById('reviews-container').innerHTML = `<p class="text-center text-red-600">Error loading reviews: ${error.message}</p>`;
+                });
+            } catch (error) {
+                console.error("Error creating query for reviews:", error);
+            }
+        }
+
+        async function initFirebaseAndAuth() {
+            if (!firebaseConfig) {
+                console.error("Firebase configuration is missing.");
+                return;
+            }
+
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // Auth State Listener setup
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        currentUserId = user.uid;
+                    } else {
+                        // If signed out, try to sign in anonymously
+                        try {
+                            // If initialAuthToken is present, use it; otherwise sign in anonymously
+                            if (initialAuthToken) {
+                                await fetchWithRetry(() => signInWithCustomToken(auth, initialAuthToken));
+                            } else {
+                                await fetchWithRetry(() => signInAnonymously(auth));
+                            }
+                            // The onAuthStateChanged listener will fire again with the new user object
+                            return; 
+                        } catch (anonError) {
+                            console.error("Anonymous sign-in failed:", anonError);
+                            currentUserId = 'anonymous-error'; // Fallback ID
+                        }
+                    }
+
+                    // Once we have a final user (authenticated or anonymous)
+                    document.getElementById('user-id-display').textContent = currentUserId;
+                    isAuthReady = true;
+                    
+                    // Start Firestore listeners ONLY after authentication state is confirmed
+                    setupReviewListener();
+                });
+                
+            } catch (error) {
+                console.error("Firebase initialization failed:", error);
+                document.getElementById('reviews-container').innerHTML = `<p class="text-center text-red-600">Failed to connect to the database. Error: ${error.message}</p>`;
+                document.getElementById('user-id-display').textContent = "ERROR";
+                isAuthReady = true; 
+            }
+        }
 
 
+        // --- MAIN DOM CONTENT LOADED ---
         document.addEventListener('DOMContentLoaded', function() {
             const ageGateOverlay = document.getElementById('age-gate-overlay');
             const ageConfirmBtn = document.getElementById('age-confirm-btn');
             const mainContent = document.getElementById('main-content');
-            const openMenuBtn = document.getElementById('open-menu-btn');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
-            const menuBackdrop = document.getElementById('menu-backdrop');
+            const reviewForm = document.getElementById('review-form');
 
             // --- Menu Event Listeners ---
-            openMenuBtn.addEventListener('click', toggleMenu);
-            closeMenuBtn.addEventListener('click', toggleMenu);
-            menuBackdrop.addEventListener('click', toggleMenu); 
+            document.getElementById('open-menu-btn').addEventListener('click', toggleMenu);
+            document.getElementById('close-menu-btn').addEventListener('click', toggleMenu);
+            document.getElementById('menu-backdrop').addEventListener('click', toggleMenu); 
 
             // --- Age Gate Logic ---
             const AGE_CONFIRMED_KEY = 'elevate_age_confirmed';
-
-            if (localStorage.getItem(AGE_CONFIRMED_KEY) === 'true') {
-                hideAgeGate();
-                setupProductListeners(); // Setup listeners immediately if gate is bypassed
-            }
-
-            ageConfirmBtn.addEventListener('click', function() {
-                localStorage.setItem(AGE_CONFIRMED_KEY, 'true');
-                hideAgeGate();
-                setupProductListeners(); // Setup listeners after confirmation
-            });
 
             function hideAgeGate() {
                 ageGateOverlay.classList.add('hidden-gate');
                 mainContent.classList.remove('opacity-0', 'pointer-events-none');
                 mainContent.classList.add('opacity-100');
+                document.body.style.paddingTop = '2rem'; 
             }
 
-            // --- Form Submission Console Logging ---
+            if (localStorage.getItem(AGE_CONFIRMED_KEY) === 'true') {
+                hideAgeGate();
+                setupProductListeners();
+                initFirebaseAndAuth(); 
+            }
+
+            ageConfirmBtn.addEventListener('click', function() {
+                localStorage.setItem(AGE_CONFIRMED_KEY, 'true');
+                hideAgeGate();
+                setupProductListeners();
+                initFirebaseAndAuth(); 
+            });
+            
+            // --- Review Form Listener ---
+            if (reviewForm) {
+                reviewForm.addEventListener('submit', submitReview);
+            }
+
+            // Re-setup listeners on resize to ensure tooltip positioning is correctly calculated for new screen size
+            window.addEventListener('resize', hideTooltip);
+            
+            // --- Netlify Form Submission Console Logging ---
             const form = document.querySelector('form[name="order-form"]');
             form.addEventListener('submit', function(e) {
                 setTimeout(() => {
-                    console.log('Form submission detected. Netlify is handling the data capture.');
+                    console.log('Order form submission detected. Netlify is handling the data capture.');
                 }, 100);
             });
         });
