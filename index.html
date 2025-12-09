@@ -46,6 +46,10 @@
         }
         .product-card {
             transition: all 0.3s ease;
+            cursor: pointer; /* Indicate interactivity */
+            user-select: none; /* Prevent text selection on touch/click */
+            -webkit-user-select: none;
+            -moz-user-select: none;
         }
         .product-card:hover {
             transform: translateY(-5px);
@@ -71,6 +75,51 @@
             opacity: 0 !important;
             pointer-events: none;
         }
+        /* Mobile Menu Styles */
+        #mobile-menu {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 280px; /* fixed width for drawer */
+            height: 100%;
+            background-color: white;
+            z-index: 50;
+            padding: 1.5rem;
+            transform: translateX(100%);
+            transition: transform 0.3s ease-in-out;
+            box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+        #menu-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 45;
+            display: none;
+        }
+        #menu-backdrop.open {
+            display: block;
+        }
+
+        /* Product Tooltip Styling - Initial state (visually hidden but allows width calculation) */
+        #product-tooltip {
+            min-width: 180px;
+            max-width: 90vw; /* Responsive width */
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            left: -9999px; /* Initial off-screen position for safety */
+        }
+        /* Target state for visible tooltip */
+        #product-tooltip.visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
     </style>
 </head>
 <body class="font-sans text-text-dark">
@@ -90,9 +139,41 @@
             </p>
         </div>
     </div>
+
+    <!-- Mobile Menu Backdrop -->
+    <div id="menu-backdrop" class="hidden-gate"></div>
     
+    <!-- Mobile Menu Drawer (Hidden by default) -->
+    <div id="mobile-menu" class="lg:hidden">
+        <div class="flex justify-between items-center mb-6 border-b pb-3 border-primary/20">
+            <h2 class="text-xl font-bold text-primary">Menu</h2>
+            <button id="close-menu-btn" class="text-text-dark hover:text-accent focus:outline-none">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <nav class="space-y-4">
+            <a href="#products" class="block text-lg font-medium text-text-dark hover:text-accent transition duration-150" onclick="closeMenu()">Menu</a>
+            <a href="#about" class="block text-lg font-medium text-text-dark hover:text-accent transition duration-150" onclick="closeMenu()">Our Story</a>
+            <a href="#disclaimers" class="block text-lg font-medium text-text-dark hover:text-accent transition duration-150" onclick="closeMenu()">Legal</a>
+            <a href="#order" class="block text-lg font-medium px-4 py-2 border border-accent rounded-full text-accent hover:bg-accent hover:text-white transition duration-150 mt-4" onclick="closeMenu()">Order Now</a>
+        </nav>
+        <div class="mt-8 pt-4 border-t border-primary/20">
+             <a href="https://wa.me/1234567890" target="_blank" class="text-sm text-green-600 flex items-center hover:text-green-700">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 3.321 1.62 6.307 4.133 8.167l-.768 2.833 3.018-.841A9.965 9.965 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm3.827 13.568c-.104-.176-.395-.282-.82-.505-.426-.223-2.502-1.229-2.898-1.36-.396-.131-.685-.198-.974.198-.29.396-1.121 1.36-1.37 1.649-.248.29-.496.331-.922.11-.426-.223-1.802-.663-3.435-2.122-1.268-1.144-2.126-2.55-2.374-2.946-.248-.396-.026-.61.196-.833.193-.198.426-.505.639-.753.213-.248.283-.435.426-.725.143-.29.071-.54-.036-.753-.104-.213-.974-2.348-1.334-3.21-.358-.863-.717-.74-.974-.753-.248-.013-.538-.013-.827-.013-.29 0-.768.11-.974.396-.206.289-.78 1.139-.78 2.77 0 1.631 1.155 3.21 1.659 3.896.505.686 2.215 3.376 5.378 4.618 3.163 1.242 3.827 1.053 4.512.986.685-.067 1.155-.444 1.325-.879.17-.434.17-.806.121-.892-.049-.086-.179-.131-.371-.237z"/></svg>
+                Contact us on WhatsApp
+            </a>
+        </div>
+    </div>
+
     <!-- Main Content (Hidden until Age Confirmed) -->
     <div id="main-content" class="opacity-0 transition-opacity duration-500 pointer-events-none">
+
+        <!-- Tooltip for Product Description (Positioned Fixed/Absolute via JS) -->
+        <div id="product-tooltip" class="fixed z-50 p-3 bg-primary text-white rounded-xl shadow-2xl transition-all duration-200 pointer-events-none">
+            <p id="tooltip-content" class="text-sm"></p>
+            <!-- Arrow element - position will be set by JS dynamically -->
+            <div id="tooltip-arrow" class="absolute w-3 h-3 bg-primary transform rotate-45 -bottom-1 rounded-sm" style="left: 50%;"></div>
+        </div>
 
         <!-- Sticky WhatsApp Button -->
         <a href="https://wa.me/1234567890?text=Hi%20OG%20EDIBLES1738%2C%20I%20have%20an%20order%20inquiry." 
@@ -114,7 +195,8 @@
                     <a href="#disclaimers" class="text-text-dark hover:text-accent transition duration-150">Legal</a>
                     <a href="#order" class="px-4 py-1 border border-accent rounded-full text-accent hover:bg-accent hover:text-white transition duration-150">Order Now</a>
                 </nav>
-                <button class="md:hidden text-text-dark focus:outline-none">
+                <!-- Mobile Menu Toggle Button (Visible only on small screens) -->
+                <button id="open-menu-btn" class="md:hidden text-text-dark focus:outline-none">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
                 </button>
             </div>
@@ -129,7 +211,7 @@
                 <p class="text-xl md:text-2xl mb-8 text-text-dark/80 max-w-4xl mx-auto">
                     Curated selection of raw flower, delicious edibles, and innovative cannabis-infused beverages. Discover your perfect dose.
                 </p>
-                <!-- Large Banner Image (1/16) -->
+                <!-- Large Banner Image -->
                 <img src="https://placehold.co/1200x400/1E4D2B/E5F3E7?text=OG+EDIBLES1738+Artisan+Selection" alt="High-quality cannabis products banner" class="mx-auto mt-10 rounded-xl shadow-xl w-full max-w-5xl">
                 <a href="#products" class="inline-block px-8 py-3 text-lg font-semibold bg-primary text-white rounded-full shadow-lg hover:bg-accent transition duration-300 transform hover:scale-105 mt-8">
                     View Our Full Menu
@@ -137,85 +219,146 @@
             </div>
         </section>
 
-        <!-- Menu & Products Section -->
+        <!-- Menu & Products Section (Grid Display) -->
         <section id="products" class="py-20">
             <div class="container mx-auto px-4 sm:px-6 lg:px-8">
                 <h2 class="text-4xl font-bold text-center mb-12 border-b-2 border-accent/30 pb-2 max-w-max mx-auto">Menu & Products</h2>
                 
-                <!-- Edibles Grid (4 Images) -->
+                <!-- Edibles Grid -->
                 <h3 class="text-3xl font-bold text-primary mb-6 text-center">Gummies & Edibles</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Mixed+Gummies" alt="Mixed Fruit Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-16">
+                    
+                    <!-- Edible Item 1 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy1">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Mixed+Gummies" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Mixed+Gummies';" alt="Mixed Fruit Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Mixed Fruit (100mg)</p>
                         <p class="text-accent text-lg font-bold mt-1">$20</p>
                     </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Squares" alt="Chocolate Squares" class="w-full h-32 object-cover rounded-lg mb-3">
+                    <!-- Edible Item 2 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy2">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Squares" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Squares';" alt="Chocolate Squares" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Chocolate (50mg/ea)</p>
                         <p class="text-accent text-lg font-bold mt-1">$25</p>
                     </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts" alt="Vegan Cannabis Tarts" class="w-full h-32 object-cover rounded-lg mb-3">
+                    <!-- Edible Item 3 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy3">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Vegan+Tarts';" alt="Vegan Cannabis Tarts" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Vegan Sativa Tarts</p>
                         <p class="text-accent text-lg font-bold mt-1">$18</p>
                     </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Cereal+Bar" alt="Infused Cereal Bar" class="w-full h-32 object-cover rounded-lg mb-3">
+                    <!-- Edible Item 4 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy4">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Cereal+Bar" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Cereal+Bar';" alt="Infused Cereal Bar" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Infused Cereal Bar</p>
                         <p class="text-accent text-lg font-bold mt-1">$22</p>
                     </div>
+                     <!-- Edible Item 5 -->
+                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy5">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Hard+Candy" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Hard+Candy';" alt="Infused Hard Candy" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Artisan Hard Candy</p>
+                        <p class="text-accent text-lg font-bold mt-1">$15</p>
+                    </div>
+                    
+                    <!-- New Edible Item 6 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy6">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Sour+Watermelon" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Sour+Watermelon';" alt="Sour Watermelon Gummies" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Sour Watermelon (300mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$35</p>
+                    </div>
+                    <!-- New Edible Item 7 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy7">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Hazelnut+Brownie" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Hazelnut+Brownie';" alt="Hazelnut Brownies" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Hazelnut Brownies (Indica)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$30</p>
+                    </div>
+                    <!-- New Edible Item 8 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy8">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Espresso+Chews" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Espresso+Chews';" alt="Espresso Chews" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Espresso Chews (5mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$10</p>
+                    </div>
+                    <!-- New Edible Item 9 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy9">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Cookie+Dough+Bites" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Cookie+Dough+Bites';" alt="Cookie Dough Bites" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Cookie Dough Bites (Hybrid)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$28</p>
+                    </div>
+                    <!-- New Edible Item 10 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy10">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Tropical+Jelly+Beans" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Tropical+Jelly+Beans';" alt="Tropical Jelly Beans" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Tropical Jelly Beans (150mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$24</p>
+                    </div>
+
                 </div>
 
-                <!-- Flower Grid (4 Images) -->
-                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Raw Flower</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream" alt="Blue Dream Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                <!-- Flower & Beverages Grid -->
+                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Flower & Beverages</h3>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+
+                    <!-- Item 1: Flower -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower1">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Blue+Dream';" alt="Blue Dream Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Blue Dream (Sativa)</p>
                         <p class="text-accent text-lg font-bold mt-1">$45/3.5g</p>
                     </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush" alt="OG Kush Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">OG Kush (Indica)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$50/3.5g</p>
-                    </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake" alt="Wedding Cake Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Wedding Cake (Hybrid)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$48/3.5g</p>
-                    </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Haze" alt="Purple Haze Flower" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Purple Haze (Sativa)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$45/3.5g</p>
-                    </div>
-                </div>
-
-                <!-- Beverages Grid (4 Images) -->
-                <h3 class="text-3xl font-bold text-primary mb-6 text-center">Infused Beverages</h3>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Citrus+Soda" alt="Sparkling Citrus Soda" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Citrus Soda (5mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$8</p>
-                    </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Coffee+Shot" alt="Iced Coffee Shot" class="w-full h-32 object-cover rounded-lg mb-3">
+                    <!-- Item 2: Beverage -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink1">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Iced+Coffee+Shot" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Iced+Coffee+Shot';" alt="Iced Coffee Shot" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Iced Coffee Shot (10mg)</p>
                         <p class="text-accent text-lg font-bold mt-1">$12</p>
                     </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Ginger+Ale" alt="Ginger Ale Mixer" class="w-full h-32 object-cover rounded-lg mb-3">
+                    <!-- Item 3: Flower -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower2">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Wedding+Cake';" alt="Wedding Cake Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Wedding Cake (Hybrid)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$48/3.5g</p>
+                    </div>
+                    <!-- Item 4: Beverage -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink2">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Ginger+Ale" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Ginger+Ale';" alt="Ginger Ale Mixer" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">Ginger Ale (2.5mg)</p>
                         <p class="text-accent text-lg font-bold mt-1">$7</p>
                     </div>
-                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl">
-                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Black+Tea" alt="Infused Black Tea" class="w-full h-32 object-cover rounded-lg mb-3">
-                        <p class="font-semibold text-text-dark">Organic Black Tea (5mg)</p>
-                        <p class="text-accent text-lg font-bold mt-1">$9</p>
+                    <!-- Item 5: Flower -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower3">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=OG+Kush';" alt="OG Kush Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Kush (Indica)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$50/3.5g</p>
+                    </div>
+                    
+                    <!-- New Flower Item 6 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower4">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Punch" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Purple+Punch';" alt="Purple Punch Indica Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Purple Punch (Indica)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$40/3.5g</p>
+                    </div>
+                    <!-- New Beverage Item 7 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink3">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Mango+Water" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Mango+Water';" alt="Mango Sparkling Water" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Mango Sparkling Water (5mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$8</p>
+                    </div>
+                    <!-- New Flower Item 8 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower5">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Gelato" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Gelato';" alt="Gelato Hybrid Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Gelato (Hybrid)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$52/3.5g</p>
+                    </div>
+                    <!-- New Beverage Item 9 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="drink4">
+                        <img src="https://placehold.co/400x300/A56CFF/FFFFFF?text=Lemonade+Mixer" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Lemonade+Mixer';" alt="Lemonade Mixer" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Lemonade Mixer (10mg)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$14</p>
+                    </div>
+                    <!-- New Flower Item 10 -->
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="flower6">
+                        <img src="https://placehold.co/400x300/1E4D2B/E5F3E7?text=Durban+Poison" onerror="this.onerror=null; this.src='https://placehold.co/400x300/1E4D2B/E5F3E7?text=Durban+Poison';" alt="Durban Poison Sativa Flower" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">Durban Poison (Sativa)</p>
+                        <p class="text-accent text-lg font-bold mt-1">$47/3.5g</p>
                     </div>
                 </div>
+
             </div>
         </section>
 
@@ -354,40 +497,191 @@
     </div>
     
     <script>
+        // --- PRODUCT DESCRIPTION DATA ---
+        const productDescriptions = {
+            'gummy1': 'Our signature mixed fruit gummies (10x10mg), potent and delicious. Perfect for a predictable and balanced high. Indica dominant.',
+            'gummy2': 'Rich, dark chocolate squares. Each piece is 50mg for experienced users. Smooth texture and intense flavor.',
+            'gummy3': 'Light, flaky sativa-infused tarts. Made with all-natural, vegan ingredients for an uplifting and energetic effect.',
+            'gummy4': 'A classic infused cereal bar packed with flavor and 100mg of hybrid goodness. Great for long-lasting effects.',
+            'gummy5': 'Artisan hard candies, long-lasting flavor and subtle dose delivery (5mg per piece). Excellent for micro-dosing.',
+            'gummy6': 'Extremely potent sour watermelon gummies (300mg total). Recommended only for high-tolerance consumers. Sativa hybrid.',
+            'gummy7': 'Decadent hazelnut brownies, deeply relaxing indica effects. Enjoy a couch-lock experience with a gourmet taste.',
+            'gummy8': 'Quick-dissolving 5mg espresso chews for a clear-headed, focused high. Low dose and fast acting.',
+            'gummy9': 'Edible cookie dough bites with a balanced hybrid strain infusion. Delicious and perfectly safe to eat raw.',
+            'gummy10': 'Tropical blend jelly beans, 150mg total package. A fun, flavorful way to enjoy a medium-intensity experience.',
+
+            'flower1': 'Blue Dream: A popular Sativa-dominant hybrid, known for balanced full-body relaxation with gentle cerebral invigoration.',
+            'drink1': '10mg Iced Coffee Shot. Fast-acting THC nano-emulsion mixed with premium cold-brew coffee. Great for a morning lift.',
+            'flower2': 'Wedding Cake: A potent Indica-dominant hybrid offering euphoric and deeply relaxing effects. Great for winding down.',
+            'drink2': 'Light 2.5mg Ginger Ale mixer. Low dose, ideal for social settings or mixing mocktails without heavy effects.',
+            'flower3': 'OG Kush: A true Indica legend, delivering powerful sedative effects and euphoria. Best for evening use.',
+            'flower4': 'Purple Punch: A powerful Indica cross, famous for its sweet grape and berry aromas and strong, relaxing punch.',
+            'drink3': '5mg Mango Sparkling Water. Zero calorie, crisp, and refreshing. Provides a light, sociable buzz.',
+            'flower5': 'Gelato: A flavorful Hybrid known for its potent, balanced high that promotes creativity and relaxation without sedation.',
+            'drink4': '10mg Lemonade Mixer. Highly versatile and potent, perfect for mixing into any beverage for a custom high.',
+            'flower6': 'Durban Poison: A pure Sativa strain known for its potent energetic and uplifting effects. Ideal daytime smoke.',
+        };
+
+        // --- GLOBAL VARIABLES ---
+        let currentTooltipTimeout = null;
+        
+        // --- MOBILE MENU LOGIC ---
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const backdrop = document.getElementById('menu-backdrop');
+            menu.classList.toggle('open');
+            backdrop.classList.toggle('open');
+            document.body.classList.toggle('overflow-hidden', menu.classList.contains('open'));
+        }
+
+        function closeMenu() {
+             const menu = document.getElementById('mobile-menu');
+             if (menu.classList.contains('open')) {
+                 toggleMenu();
+             }
+        }
+        
+        // --- TOOLTIP LOGIC ---
+        const tooltip = document.getElementById('product-tooltip');
+        const tooltipContent = document.getElementById('tooltip-content');
+        
+        function showTooltip(targetElement) {
+            clearTimeout(currentTooltipTimeout);
+            const productId = targetElement.dataset.productId;
+            if (!productId || !productDescriptions[productId]) return;
+
+            const rect = targetElement.getBoundingClientRect();
+            const screenMargin = 12; // Minimum margin from viewport edge
+            
+            // 1. Set content and ensure base visibility for width calculation
+            tooltipContent.textContent = productDescriptions[productId];
+            tooltip.style.opacity = '0.01'; // Nearly transparent but allows width calculation
+            tooltip.style.transform = 'none';
+
+            // 2. Get the actual width of the tooltip
+            const tooltipWidth = tooltip.offsetWidth; 
+            
+            // 3. Calculate the card's center point
+            const cardCenter = rect.left + rect.width / 2;
+            
+            // 4. Calculate initial left position (centered on card)
+            let targetLeft = cardCenter - (tooltipWidth / 2);
+            
+            // 5. Adjustments for screen boundaries (Horizontal)
+            
+            // Check left clip: If target left is less than the screen margin, shift right.
+            if (targetLeft < screenMargin) {
+                targetLeft = screenMargin;
+            }
+
+            // Check right clip: If target right is past the screen margin, shift left.
+            const maxLeftAllowed = window.innerWidth - tooltipWidth - screenMargin;
+            if (targetLeft > maxLeftAllowed) {
+                targetLeft = maxLeftAllowed;
+            }
+            // Ensure targetLeft doesn't go below the minimum margin after all checks
+            if (targetLeft < screenMargin) targetLeft = screenMargin;
+            
+            // 6. Calculate the relative position of the arrow (distance from the tooltip's new left edge)
+            const arrowLeft = cardCenter - targetLeft; 
+
+            // 7. Calculate Top position (above the element)
+            const targetTop = rect.top - tooltip.offsetHeight - 10; 
+
+            // 8. Apply final positions
+            tooltip.style.left = `${targetLeft}px`;
+            tooltip.style.top = `${targetTop}px`; 
+            
+            // 9. Position the arrow element
+            const arrow = document.getElementById('tooltip-arrow');
+            if (arrow) {
+                // Set the arrow's left position relative to the tooltip's left edge
+                arrow.style.left = `${arrowLeft}px`;
+                // Keep the arrow visually centered on this point
+                arrow.style.transform = 'translateX(-50%) rotate(45deg)'; 
+            }
+
+            // 10. Make the tooltip fully visible with transition
+            tooltip.classList.add('visible');
+        }
+
+        function hideTooltip() {
+            clearTimeout(currentTooltipTimeout);
+            // Hide instantly on touchend/mouseup by removing the visible class
+            tooltip.classList.remove('visible');
+            
+            // Reset state using inline styles for transition effects
+            tooltip.style.opacity = '0';
+            tooltip.style.transform = 'translateY(10px)'; 
+
+            // Schedule a cleanup to fully hide the element's temporary visibility tag after transition
+            currentTooltipTimeout = setTimeout(() => {
+                // Return to off-screen, visually hidden state 
+                tooltip.style.left = '-9999px'; 
+                tooltip.style.opacity = '0';
+            }, 200); // Wait for the 200ms transition
+        }
+
+        function setupProductListeners() {
+            document.querySelectorAll('.product-card').forEach(card => {
+                // MOUSE EVENTS
+                card.addEventListener('mousedown', (e) => {
+                    e.preventDefault(); 
+                    showTooltip(card);
+                });
+                card.addEventListener('mouseup', hideTooltip);
+                card.addEventListener('mouseleave', hideTooltip);
+
+                // TOUCH EVENTS (for mobile)
+                card.addEventListener('touchstart', (e) => {
+                    e.preventDefault(); 
+                    showTooltip(card);
+                }, { passive: false }); 
+                card.addEventListener('touchend', hideTooltip);
+                card.addEventListener('touchcancel', hideTooltip);
+            });
+        }
+
+
         document.addEventListener('DOMContentLoaded', function() {
             const ageGateOverlay = document.getElementById('age-gate-overlay');
             const ageConfirmBtn = document.getElementById('age-confirm-btn');
             const mainContent = document.getElementById('main-content');
-            // Using localStorage to remember age confirmation
+            const openMenuBtn = document.getElementById('open-menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const menuBackdrop = document.getElementById('menu-backdrop');
+
+            // --- Menu Event Listeners ---
+            openMenuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+            menuBackdrop.addEventListener('click', toggleMenu); 
+
+            // --- Age Gate Logic ---
             const AGE_CONFIRMED_KEY = 'elevate_age_confirmed';
 
-            // Check if user has already confirmed age in this session
             if (localStorage.getItem(AGE_CONFIRMED_KEY) === 'true') {
                 hideAgeGate();
+                setupProductListeners(); // Setup listeners immediately if gate is bypassed
             }
 
             ageConfirmBtn.addEventListener('click', function() {
                 localStorage.setItem(AGE_CONFIRMED_KEY, 'true');
                 hideAgeGate();
+                setupProductListeners(); // Setup listeners after confirmation
             });
 
             function hideAgeGate() {
-                // Fade out the gate and then remove it visually
                 ageGateOverlay.classList.add('hidden-gate');
-                
-                // Show main content
                 mainContent.classList.remove('opacity-0', 'pointer-events-none');
                 mainContent.classList.add('opacity-100');
             }
 
-            // Netlify form submission handling (optional client-side feedback)
-            // Note: The actual submission is handled by Netlify's backend.
+            // --- Form Submission Console Logging ---
             const form = document.querySelector('form[name="order-form"]');
             form.addEventListener('submit', function(e) {
                 setTimeout(() => {
                     console.log('Form submission detected. Netlify is handling the data capture.');
                 }, 100);
-                // No e.preventDefault() needed if you want Netlify's default success page behavior
             });
         });
     </script>
