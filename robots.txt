@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Disallow specific system files or private directories
+Disallow: /private/
+Disallow: /tmp/
+
+# Link to the Sitemap
+Sitemap: https://www.ogedibles1738.com/sitemap.xml
