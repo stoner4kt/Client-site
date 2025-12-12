@@ -1,0 +1,14 @@
+# netlify.toml
+
+# Enable the plugin that inlines environment variables
+[[plugins]]
+package = "netlify-plugin-inline-environment"
+
+  [plugins.inputs]
+  # Define the variables to be injected into the static site
+  inlined_keys = [
+    "FIREBASE_CLIENT_KEY", 
+    "OTHER_ENV_VAR" # You can remove this line if you don't have other public keys
+  ]
+  # You can specify the file(s) where the injection should occur
+  files = ["index.html"]
