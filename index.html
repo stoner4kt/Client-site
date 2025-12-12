@@ -322,6 +322,25 @@
                         <p class="font-semibold text-text-dark">Tropical Jelly beans </p>
                         <p class="text-accent text-lg font-bold mt-1">R270=20</p>
                     </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy1">
+                        <img src="images/corn.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Gummy+Pack';" alt="OG Infused Gummy Pack" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Popcorns</p>
+                        <p class="text-accent text-lg font-bold mt-1">R70</p>
+                   </div>
+                     <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy1">
+                        <img src="images/popgumroll.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Gummy+Pack';" alt="OG Infused Gummy Pack" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark"> OG 🍿, Pre roll, Gummy Pack</p>
+                        <p class="text-accent text-lg font-bold mt-1">R300</p>
+                        </div>
+                    <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy1">
+                        <img src="images/popcorngum.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=OG+Gummy+Pack';" alt="OG Infused Gummy Pack" class="w-full h-32 object-cover rounded-lg mb-3">
+                        <p class="font-semibold text-text-dark">OG Gummy Pack & OG Popcorns</p>
+                        <p class="text-accent text-lg font-bold mt-1">R210</p>
+                   
+                   </div>
+                 </div>
+                 
+                    </div>
                 </div>
          
                 
@@ -967,7 +986,7 @@
         
         const currentUser = auth.currentUser;
         if (!currentUser) {
-            alert('Please log in before submitting an order inquiry.');
+            alert('You must be logged in to place an order. ');
             return;
         }
 
@@ -996,6 +1015,45 @@
 
           console.log('Order saved with id:', orderRef.id);
           
+
+        // 2. 🚨 NEW: Send data directly to Make.com Webhook 🚨
+        // ⚠️ IMPORTANT: REPLACE THIS URL with your Make.com Webhook URL (from Step 2 below)
+        const MAKE_WEBHOOK_URL = 'YOUR_MAKE_WEBHOOK_URL_HERE';
+
+        const makePayload = {
+            orderId: orderRef.id,
+            customerName: name,
+            customerEmail: userEmail,
+            phoneNumber: phone,
+            orderDetails: orderDetails,
+            timestamp: new Date().toISOString() // Use client timestamp
+        };
+
+        // Send the notification asynchronously (fire-and-forget)
+        fetch(MAKE_WEBHOOK_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(makePayload),
+        }).then(response => {
+            if (!response.ok) {
+                console.warn('Make.com Webhook failed to receive data. Status:', response.status);
+            } else {
+                console.log('Successfully sent data to Make.com');
+            }
+        }).catch(error => {
+            console.error('Network error when calling Make.com Webhook:', error);
+        });
+        
+        // 3. Redirect to your existing thank-you page:
+        window.location.href = 'thank-you.html';
+      } catch (err) {
+        console.error('Error saving order:', err);
+        alert('Failed to save order. Please try again or contact support.');
+      }
+    });
+  }
           // Construct the WhatsApp message
           const waMessage = encodeURIComponent(`Hi OG EDIBLES1738, I'd like to confirm an order.
 Name: ${name}
