@@ -190,7 +190,15 @@
            class="fixed bottom-6 right-6 z-50 p-4 bg-green-500 text-white rounded-full shadow-xl hover:bg-green-600 transition duration-300 transform hover:scale-105"
            aria-label="Chat with us on WhatsApp">
            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-               <path d="M12 2C6.477 2 2 6.477 2 12c0 3.321 1.62 6.307 4.133 8.167l-.768 2.833 3.018-.841A9.965 9.965 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm3.827 13.568c-.104-.176-.395-.282-.82-.505-.426-.223-2.502-1.229-2.898-1.36-.396-.131-.685-.198-.974.198-.29.396-1.121 1.36-1.37 1.649-.248.29-.496.331-.922.11-.426-.223-1.802-.663-3.435-2.122-1.268-1.144-2.126-2.55-2.374-2.946-.248-.396-.026-.61.196-.833.193-.198.426-.505.639-.753.213-.248.283-.435.426-.725.143-.29.071-.54-.036-.753-.104-.213-.974-2.348-1.334-3.21-.358-.863-.717-.74-.974-.753-.248-.013-.538-.013-.827-.013-.29 0-.768.11-.974.396-.206.289-.78 1.139-.78 2.77 0 1.631 1.155 3.21 1.659 3.896.505.686 2.215 3.376 5.378 4.618 3.163 1.242 3.827 1.053 4.512.986.685-.067 1.155-.444 1.325-.879.17-.434.17-.806.121-.892-.049-.086-.179-.131-.371-.237z"/></svg>
+               <path d="M12 2C6.477 2 2 6.477 2 12c0 3.321 1.62 6.307 4.133 8.167l-.768 2.833 3.018-.841A9.965 9.965 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm3.827 13.568c-.104-.176-.395-.282-.82-.505-.426-.223-2.502-1.229-2.898-1.36-.396-.131-.685-.198-.974.198-.29.396-1.121 1.36-1.37 1.649-.248.29-.496.331-.922.11-.426-.223-1.802-.663-3.435-2.122-1.268-1.144-2.126-2.55-2.374-2.946-.248-.396-.026-.61.196-.833.193-.198.426-.505.639-.753.213-.248.283-.435.426-.725.143-.29.071-.54-.036-.753-.104-.213-.974-2.348-1.334-3.21-.358-.863-.717-.74-.974-.753-.248-.013-.538-.013-.827-.013-.29 0-.768.11-.974.396-.206.289-.78 1.139-.78 2.77 0 1.631 1.155 3.21 1.659 3.896.505.686 2.215 3.376 5.378 4.618 3.163 1.242 3.827 1.053 4.512.986.685-.067 1.155-.444 1.325-.879.17-.434.17-.806.121-.892-.049-.086-.179-.131-.371-.237z"/>
+               <a id="auth-fab"
+   class="fixed bottom-32 right-6 z-50 p-4 bg-primary text-secondary rounded-full shadow-xl hover:bg-accent transition duration-300 transform hover:scale-105 cursor-pointer"
+   aria-label="Login or Signup">
+   <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+   </svg>
+</a>
+               </svg>
         </a>
 
         <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-sm shadow-md">
@@ -789,6 +797,7 @@
     const loggedInUserInfo = document.getElementById('logged-in-user-info');
     const orderLockOverlay = document.getElementById('order-lock-overlay');
     const navOrderBtn = document.getElementById('nav-order-btn');
+    const authFab = document.getElementById('auth-fab'); // Must be declared!
 
     // Modal toggles
     function toggleAccountPanel() {
@@ -804,7 +813,15 @@
         if (e.target.id === 'signup-modal') signupModal.classList.add('hidden');
         if (e.target.id === 'login-modal') loginModal.classList.add('hidden');
     });
-
+// --- ADD THIS NEW LISTENER BELOW THE MODAL TOGGLES ---
+if (authFab) {
+    authFab.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Clicks on the FAB should open the Signup modal by default
+        signupModal.classList.remove('hidden'); 
+    });
+}
+// --- END NEW LISTENER ---
 
     // AUTH LISTENERS
     auth.onAuthStateChanged(user => {
