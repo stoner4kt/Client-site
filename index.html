@@ -240,7 +240,7 @@
                         <p class="font-semibold text-text-dark">OG Gummy Pack (4-Count)</p>
                         <p class="text-accent text-lg font-bold mt-1">R150</p>
                     </div>
-          <div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy2">
+<div class="product-card bg-secondary p-4 rounded-xl shadow-lg hover:shadow-2xl" data-product-id="gummy2">
                         <img src="images/ogcococubes.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x300/A56CFF/FFFFFF?text=Chocolate+Cubes';" alt="OG Infused Chocolate Cubes" class="w-full h-32 object-cover rounded-lg mb-3">
                         <p class="font-semibold text-text-dark">OG Chocolate Cubes x Gummy (10-Pack)</p>
                         <p class="text-accent text-lg font-bold mt-1">R250</p>
@@ -304,6 +304,7 @@
          
                 
                 
+
                 <h3 class="text-3xl font-bold text-primary mb-6 text-center">Flower & Concentrates</h3>
                 <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-16">
                     
@@ -410,12 +411,7 @@
                         <p class="font-semibold text-text-dark">Pyrax Bong</p>
                         <p class="text-accent text-lg font-bold mt-1">R350</p>
                     </div>
-                    </div>
                 </div>
-         
-                
-                
-                
             </div>
         </section>
 
@@ -661,13 +657,13 @@
   // ====== Firebase config: REPLACE values with your real Firebase config ======
   // You can find these in your Firebase console (Project settings).
   const firebaseConfig = {
-    apiKey: "YOUR_API_KEY_HERE",
-    authDomain: "YOUR_AUTH_DOMAIN_HERE",
-    projectId: "YOUR_PROJECT_ID_HERE",
-    storageBucket: "YOUR_STORAGE_BUCKET_HERE",
-    messagingSenderId: "YOUR_MSG_SENDER_ID",
-    appId: "YOUR_APP_ID",
-    measurementId: "YOUR_MEASUREMENT_ID"
+    apiKey: "process.env.GATSBY_FIREBASE_API_KEY ",
+  authDomain: "og-edibles---reviews.firebaseapp.com",
+  projectId: "og-edibles---reviews",
+  storageBucket: "og-edibles---reviews.firebasestorage.app",
+  messagingSenderId: "932728051152",
+  appId: "1:932728051152:web:3ff2345af63c91e691d5d5",
+  measurementId: "G-BL0XW6REQX"
   };
 
   // Init Firebase
